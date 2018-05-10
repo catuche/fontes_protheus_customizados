@@ -1,0 +1,1269 @@
+#INCLUDE "INV270.CH"
+#INCLUDE "PROTHEUS.CH"
+#INCLUDE 'FWADAPTEREAI.CH'
+
+/*/
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³ MATA270  ³ Autor ³ Eveli Morasco         ³ Data ³ 10/03/92 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Programa de digitacao do inventario                        ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Parametros³ ExpL1 = .T. para Rot.Automatica     (OPC)                  ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ Generico                                                   ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³         ATUALIZACOES SOFRIDAS DESDE A CONSTRU€AO INICIAL.             ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Programador ³ Data   ³ BOPS ³  Motivo da Alteracao                     ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Rodrigo Sart³ Jan 98 ³XXXXXX³Acerto Rastreabilidade / Locali. Fisica   ³±±
+±±³Fernando J. ³19/01/99³XXXXXX³Usar Sub-Lote na pesq. da Func. A270VldLot³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Descri‡…o ³ PLANO DE MELHORIA CONTINUA                     MATA270.PRX ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ITEM PMC  ³ Responsavel              ³ Data      ³ BOPS                ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³      01  ³Marcos V. Ferreira        ³16/01/2006 ³                     ³±±
+±±³      02  ³Erike Yuri da Silva       ³27/12/2005 ³                     ³±±
+±±³      03  ³Marcos V. Ferreira        ³03/08/2006 ³ 00000104121         ³±±
+±±³      04  ³Marcos V. Ferreira        ³12/01/2006 ³                     ³±±
+±±³      04  ³Ricardo Berti             ³19/04/2006 ³ 00000096786         ³±±
+±±³      05  ³Marcos V. Ferreira        ³03/08/2006 ³ 00000104121         ³±±
+±±³      06  ³Marcos V. Ferreira        ³16/01/2006 ³                     ³±±
+±±³      07  ³Erike Yuri da Silva       ³27/12/2005 ³                     ³±±
+±±³      08  ³Marcos V. Ferreira        ³12/01/2006 ³                     ³±±
+±±³      09  ³Ricardo Berti             ³19/04/2006 ³ 00000096786         ³±±
+±±³      10  ³Ricardo Berti             ³19/04/2006 ³ 00000096786         ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+User Function INV270(xRotAuto,lEscolha,nOpcAuto)
+Local lRet			:= .T.
+Local aCores		:= { {"ZB7_ESCOLHA = 'S' ","BR_VERDE"},{"ZB7_ESCOLHA <> 'S'","BR_VERMELHO"} }
+Local cFiltro     := ""   
+Local nPosData    := 0
+Local nPosCodPro  := 0
+Local nPosLocal   := 0                
+Local cContagem   := Replicate("0",(TamSx3("ZB7_CONTAGE")[1]))
+Local cSeekZB7    := ""    
+
+Default	lEscolha	:= .F.
+Default	nOpcAuto	:= 3
+
+//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+//³ Define Array contendo as Rotinas a executar do programa      ³
+//³ ----------- Elementos contidos por dimensao ------------     ³
+//³ 1. Nome a aparecer no cabecalho                              ³
+//³ 2. Nome da Rotina associada                                  ³
+//³ 3. Usado pela rotina                                         ³
+//³ 4. Tipo de Transa‡„o a ser efetuada                          ³
+//³    1 - Pesquisa e Posiciona em um Banco de Dados             ³
+//³    2 - Simplesmente Mostra os Campos                         ³
+//³    3 - Inclui registros no Bancos de Dados                   ³
+//³    4 - Altera o registro corrente                            ³
+//³    5 - Remove o registro corrente do Banco de Dados          ³
+//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+PRIVATE aRotina := MenuDef()
+PRIVATE l270Auto := .f.
+PRIVATE aRotAuto := NIL
+
+If l270Auto 
+	aRotAuto := xRotAuto
+EndIf
+
+//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+//³ Define o cabecalho da tela de atualizacoes                   ³
+//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+PRIVATE cCadastro := OemToAnsi(STR0006)   //"Digita‡„o do Invent rio"
+
+//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+//³ Verifica as perguntas selecionadas                           ³
+//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+//³ Variaveis utilizadas para parametros                         ³
+//³ mv_par01	     	// Valida Existencia                     ³
+//³ mv_par02	     	// Sugere informacoes S/N/POR LOCALIZACAO³
+//³ mv_par03	     	// Data p/ opcao sel. autom.             ³
+//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+Pergunte("INV270",!l270Auto)
+
+lEscolha := .F.
+
+//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄVÄÄÄÄ¿
+//³//Inclui registro como registro escolhido no (ZB7_ESCOLHA== S)³
+//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+If l270Auto .And. lEscolha
+
+	nPosData		:= Ascan(aRotAuto,{|x| x[1] == "ZB7_DATA" })
+	nPosCodPro	:= Ascan(aRotAuto,{|x| x[1] == "ZB7_COD"	})
+	nPosLocal	:= Ascan(aRotAuto,{|x| x[1] == "ZB7_LOCAL" })
+	
+	If UsaContage() .And. nPosData > 0 .And. nPosCodPro > 0 .And. nPosLocal > 0
+
+		cAliasZB7 := GetNextAlias()
+		cQuery := " SELECT R_E_C_N_O_ ZZB7_RECNO, ZB7_CONTAGE "
+		cQuery += "		FROM " + RetSqlName("ZB7") 
+		cQuery += "		WHERE ZB7_FILIAL = '"	+ xFilial("ZB7")					+ "' "
+		cQuery += "		  AND ZB7_DATA   = '"	+ DTOS(aRotAuto[nPosData,2]) 	+ "' "
+		cQuery += "		  AND ZB7_COD 	 = '"	+ aRotAuto[nPosCodPro,2]  		+ "' "
+		cQuery += "		  AND ZB7_LOCAL  = '"	+ aRotAuto[nPosLocal,2]   		+ "' "				
+		cQuery += " 	ORDER BY ZB7_CONTAGE	"
+		cQuery := ChangeQuery(cQuery)
+		dbUseArea(.T.,"TOPCONN",TcGenQry(,,cQuery),cAliasZB7)
+   
+		While (cAliasZB7)->(!Eof())
+			ZB7->(dbGoto((cAliasZB7)->ZZB7_RECNO))
+			RecLock('ZB7',.F.)
+			ZB7->ZB7_ESCOLHA := ""
+			MsUnLock()
+			cContagem := ZB7->ZB7_CONTAGE
+			(cAliasZB7)->(dbSkip())
+		EndDo
+		(cAliasZB7)->(DbCloseArea())
+	
+		cContagem:= Soma1(cContagem)
+		
+		Aadd(aRotAuto,{"ZB7_CONTAGE", cContagem	, Nil })
+		Aadd(aRotAuto,{"ZB7_ESCOLHA", "S"			, Nil })
+	EndIf
+	If MsRotAuto(nOpcAuto,aRotAuto,"ZB7")
+		lRet := .F.
+	EndIf
+ElseIf l270Auto //.And. MsRotAuto(3,aRotAuto,"ZB7")
+	Do Case
+		Case nOpcAuto == 3
+			MsRotAuto(3,aRotAuto,"ZB7")
+		Case nOpcAuto == 4
+			MsRotAuto(4,aRotAuto,"ZB7")
+		Case nOpcAuto == 5
+			MsRotAuto(5,aRotAuto,"ZB7")
+		EndCase
+	lRet := .F.
+EndIf
+
+If lRet
+	//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+	//³ Ativa tecla F12 para acionar perguntas                         ³
+	//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+	If ! l270Auto
+		Set Key VK_F12 To INV270PERG()
+	EndIf
+	//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+	//³ Endereca a funcao de BROWSE                                  ³
+	//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+	mBrowse( 6, 1,22,75,"ZB7",,,,,,,,,,,,,, IF(!Empty(cFiltro),cFiltro, NIL))
+	//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+	//³ Desativa tecla que aciona perguntas                            ³
+	//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+	If ! l270Auto
+		Set Key VK_F12 To
+	EndIf
+EndIf
+Return Nil
+
+/*
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³A270Altera³ Autor ³Rodrigo de A. Sartorio ³ Data ³ 18/03/96 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Programa para alteracao de Acerto do Inventario.           ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Sintaxe   ³ A270Altera(ExpC1,ExpN1,ExpN2)                              ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Parametros³ ExpC1 = Alias do arquivo                                   ³±±
+±±³          ³ ExpN1 = Numero do registro                                 ³±±
+±±³          ³ ExpN2 = Numero da opcao selecionada                        ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA270                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+User Function F270Altera(cAlias,nReg,nOpc)
+Local nOpca:=0
+Local lRet := .T.
+
+//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+//³Verifica se o usuario tem permissao de alteracao. ³
+//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+If !(lRet := MaAvalPerm(1,{ZB7->ZB7_COD,"INV270",4}))
+	Help(,,1,'SEMPERM')
+EndIf
+
+If lRet .And. AllTrim(ZB7->(ZB7_ORIGEM)) == "LOGIX"
+	Help(,,1,'PA270ORIGEM') //O inventário não  pode ser alterado nem excluído, pois foi originado pelo LOGIX.
+	lRet := .F.
+EndIf
+
+If lRet
+	//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+	//³ Ativa tecla F4 para comunicacao com Saldos dos Lotes         ³
+	//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+	If ! l270Auto
+		Set Key VK_F4 TO ShowF4()
+	EndIf
+	
+	dbSelectArea("SB1")
+	dbSetOrder(1)
+	dbSeek(xFilial("SB1")+ZB7->ZB7_COD)
+	dbSelectArea(cAlias)
+	//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+	//³ Envia para rotina de Alteracao de Acerto do Inventario.      ³
+	//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+	nOpca := AxAltera(cAlias,nReg,nOpc,,,,,"F270TudoOk()",,,,,aRotAuto)
+
+	//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+	//³ Desativa tecla F4 para comunicacao com Saldos dos Lotes      ³
+	//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+	If ! l270Auto
+		Set Key VK_F4 To
+	EndIf
+EndIf
+
+Return lRet
+
+/*
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³A270Visual³ Autor ³Rodrigo de A. Sartorio ³ Data ³ 18/03/96 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Programa para visualizacao de Acerto do Inventario.        ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Sintaxe   ³ A270Visual(ExpC1,ExpN1,ExpN2)                              ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Parametros³ ExpC1 = Alias do arquivo                                   ³±±
+±±³          ³ ExpN1 = Numero do registro                                 ³±±
+±±³          ³ ExpN2 = Numero da opcao selecionada                        ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA270                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+User Function F270Visual(cAlias,nReg,nOpc)
+Local nOpca:=0
+dbSelectArea("SB1")
+dbSetOrder(1)
+dbSeek(xFilial("SB1")+ZB7->ZB7_COD)
+dbSelectArea(cAlias)
+//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+//³ Envia para rotina de Alteracao de Acerto do Inventario.      ³
+//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+nOpca := AxVisual(cAlias,nReg,nOpc,,)
+Return .T.
+
+/*
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³A270Inclui³ Autor ³ Eveli Morasco         ³ Data ³ 11/03/92 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Inclui digitacao do inventario                             ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Sintaxe   ³ A270Inclui(ExpC1,ExpN1,ExpN2)                              ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Parametros³ ExpC1 = Alias do arquivo                                   ³±±
+±±³          ³ ExpN1 = Numero do registro                                 ³±±
+±±³          ³ ExpN2 = Numero da opcao selecionada                        ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ Generico                                                   ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+User Function F270Inclui(cAlias,nReg,nOpc)
+Local nOpca		:=0
+Local dDataFec	:= MVUlmes()
+Local lRet		:= .T.
+//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+//³ Ativa tecla F4 para comunicacao com Saldos dos Lotes         ³
+//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+If ! l270Auto
+	Set Key VK_F4 TO ShowF4()
+EndIf
+//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+//³ Verificar data do ultimo fechamento em SX6.                  ³
+//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+If dDataFec >= dDataBase
+	Help ( " ", 1, "FECHTO" )
+	lRet := .F.
+EndIf                
+
+If lRet
+	dbSelectArea("SB2")
+	dbSeek(xFilial("SB2"))
+	If mv_par02 == 1 .and. Found() .And. !l270Auto //-- POR PRODUTO
+		While !EOF() .And. B2_FILIAL == xFilial("SB2")
+			dbSelectArea("SB1")
+			dbSeek(xFilial("SB1")+SB2->B2_COD)
+			If B1_MSBLQL == "1"
+				SB2->(DbSkip())
+				Loop
+			EndIf
+			cProduto:= SB2->B2_COD
+			cLocal	:= SB2->B2_LOCAL
+			If SldBlqSB2(cProduto,cLocal)
+				dbSelectArea(cAlias)
+				nOpca := AxInclui(cAlias,nReg,nOpc, ,"F270Prox", ,"F270TudoOk()")
+				If nOpca == 1
+					dbSelectArea("SB2")
+					If dbSeek(xFilial("SB2")+ZB7->ZB7_COD+ZB7->ZB7_LOCAL)
+						dbSkip()
+					Else 
+						CriaSB2(ZB7->ZB7_COD,ZB7->ZB7_LOCAL)
+						dbSkip()
+					EndIf
+				ElseIf nOpca == 3
+					Exit
+				EndIf
+			Else
+				dbSelectArea("SB2")
+				dbSkip()
+			EndIf
+		EndDo
+	ElseIf mv_par02 == 3 .and. Found() .And. !l270Auto //-- POR LOCALIZACAO
+		dbSelectArea("SBF")
+		dbSeek(xFilial("SBF"))
+		While !EOF() .And. BF_FILIAL == xFilial("SBF")
+			dbSelectArea("SB1")
+			dbSeek(xFilial("SB1")+SBF->BF_PRODUTO)
+			cProduto:= SBF->BF_PRODUTO
+			cLocal	:= SBF->BF_LOCAL
+			If SldBlqSB2(cProduto,cLocal)
+				dbSelectArea(cAlias)
+				nOpca := AxInclui(cAlias,nReg,nOpc, ,"F270ProxSBF", ,"f270TudoOk()")
+				If nOpca == 1
+					dbSelectArea("SBF")
+					dbSeek(xFilial("SBF")+ZB7->ZB7_LOCAL+ZB7->ZB7_LOCALI+ZB7->ZB7_COD)
+					dbSkip()
+				ElseIf nOpca == 3
+					Exit
+				EndIf
+			Else
+				dbSelectArea("SBF")
+				dbSkip()
+			EndIf
+		EndDo
+	Else
+		dbSelectArea(cAlias)
+		While .T.
+			nOpca := AxInclui(cAlias,nReg,nOpc,,,,"F270TudoOk()")
+			Exit
+		End
+	EndIf
+	//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+	//³ Desativa tecla F4 para comunicacao com Saldos dos Lotes      ³
+	//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+	If ! l270Auto
+		Set Key VK_F4 To
+	EndIf
+EndIf
+Return lRet
+
+/*
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³A270Deleta³ Autor ³ Eveli Morasco         ³ Data ³ 11/03/92 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Programa de exclusao de Inventario                         ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Sintaxe   ³ A270Deleta(ExpC1,ExpN1,ExpN2)                              ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Parametros³ ExpC1 = Alias do arquivo                                   ³±±
+±±³          ³ ExpN1 = Numero do registro                                 ³±±
+±±³          ³ ExpN2 = Numero da opcao selecionada                        ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ Generico                                                   ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+User Function F270Deleta(cAlias,nReg,nOpc)
+Local nOpcA		:= 0
+Local dDataFec	:= MVUlmes(),cOldAlias:=Alias()
+Local lRet		:= .T.
+Local aParam 	:= {{|| .T.},{|| A270TDOK()}, {|| .T.}, {|| .T.}} 
+Local aArea		:= GetArea()     
+
+//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+//³Verifica se o usuario tem permissao de delecao. ³
+//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+If !(lRet := MaAvalPerm(1,{ZB7->ZB7_COD,"INV270",5}))
+	Help(,,1,'SEMPERM')
+EndIf
+//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+//³ Verificar data do ultimo fechamento em SX6.                  ³
+//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+If dDataFec >= dDataBase
+	Help ( " ", 1, "FECHTO" )
+	lRet := .F.
+EndIf
+
+If lRet .And. AllTrim(ZB7->(ZB7_ORIGEM)) == "LOGIX"
+	Help(,,1,'PA270ORIGEM') //O inventário não  pode ser alterado nem excluído, pois foi originado pelo LOGIX.                                          
+	lRet := .F.
+EndIf
+
+If lRet
+	dbSelectArea("SB1")
+	dbSeek(xFilial("SB1")+ZB7->ZB7_COD)
+	dbSelectArea(cOldAlias)
+	     
+	//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+	//³Abre tela para confirmação da exclusão ³
+	//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+	nOpcA:= AxDeleta(cAlias,nReg,nOpc,,,,aParam,aRotAuto)
+	
+EndIf
+
+DbSelectArea(cAlias)
+RestArea(aArea)
+
+Return lRet
+
+/*
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³ A270Prox ³ Autor ³ Eveli Morasco         ³ Data ³ 11/03/92 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Apenas para inicializar algumas variaveis                  ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA270                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+Static Function F270Prox()
+Local aArea:=GetArea()
+M->ZB7_COD   := SB2->B2_COD
+M->ZB7_LOCAL := SB2->B2_LOCAL
+M->ZB7_TIPO  := SB1->B1_TIPO
+dbSelectArea("SX3")
+dbSetOrder(2)
+If dbSeek("ZB7_DOC") .And. Empty(X3_RELACAO)
+	M->ZB7_DOC := ZB7->ZB7_DOC
+EndIf
+RestArea(aArea)
+Return
+
+/*
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ-ÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³ A270ProxSBF ³ Autor ³ Fernando Gomes     ³ Data ³ 10/01/07 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄ-ÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Apenas para inicializar algumas variaveis                  ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA270                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+Static FUNCTION F270ProxSBF
+Local aArea:=GetArea()
+M->ZB7_COD     := SBF->BF_PRODUTO
+M->ZB7_LOCAL   := SBF->BF_LOCAL
+M->ZB7_LOCALI := SBF->BF_LOCALIZ
+RestArea(aArea)
+RETURN
+/*
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³A270IniCpo³ Autor ³ Eveli Morasco         ³ Data ³ 11/03/92 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Inicializa campos a partir do codigo do produto            ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Retorno   ³ .T. / .F.                                                  ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA270                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+User Function F270IniCpo()
+Local nEndereco,nEnd1,nEnd2,nLinha
+Local lRet := .T.
+Local aAreaSB2 := SB2->(GetArea())
+If !ExistCpo("SB1")
+	lRet := .F.
+EndIf
+//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+//³Verifica se o usuario tem permissao de inclusao. ³
+//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+If !(lRet := MaAvalPerm(1,{M->ZB7_COD,"INV270",3}))
+	Help(,,1,'SEMPERM')
+EndIf
+If lRet
+	dbSelectArea("SB2")
+	SB2->(dbSetOrder(1))
+	If !dbSeek(xFilial("SB2")+M->ZB7_COD)
+		If mv_par01 == 1
+			Help(" ",1,"MA270NSB2")
+			lRet := .F.
+		EndIf
+	Else
+		M->ZB7_LOCAL := B2_LOCAL
+		nEndereco := Ascan(aGets,{ |x| Subs(x,9,8) == "ZB7_LOCAL" } )
+		If nEndereco > 0
+			aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := B2_LOCAL
+		EndIf
+	EndIf
+	If lRet
+		dbSelectArea("SB1")
+		dbSeek(xFilial("SB1")+M->ZB7_COD)
+		M->ZB7_TIPO := B1_TIPO
+		nEndereco := Ascan(aGets,{ |x| Subs(x,9,7) == "ZB7_TIPO" } )
+		If nEndereco > 0
+			aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := B1_TIPO
+		EndIf
+		M->ZB7_QTSEGUM := ConvUm(SB1->B1_COD,M->ZB7_QUANT,M->ZB7_QTSEGUM,2)
+		nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_QTSEGUM" } )
+		If nEndereco > 0
+			nEnd1 := Val(Subs(aGets[nEndereco],1,2))
+			nEnd2 := Val(Subs(aGets[nEndereco],3,1))*2
+			dbSelectArea("SX3")
+			dbSetOrder(2)
+			dbSeek("B2_QTSEGUM")
+			dbSetOrder(1)
+			aTela[nEnd1][nEnd2] := Trans(M->ZB7_QTSEGUM,Trim(SX3->X3_PICTURE))
+		EndIf
+		M->ZB7_NUMLOT := CriaVar("ZB7_NUMLOT")
+		nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_NUMLOT" } )
+		If nEndereco > 0
+			aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := M->ZB7_NUMLOT
+		EndIf
+		M->ZB7_LOTECT := CriaVar("ZB7_LOTECT")
+		nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_LOTECT" } )
+		If nEndereco > 0
+			aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := M->ZB7_LOTECT
+		EndIf
+		M->ZB7_DTVALI := CriaVar("ZB7_DTVALI")
+		nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_DTVALI" } )
+		If nEndereco > 0
+			aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := DTOC(M->ZB7_DTVALI)
+		EndIf		
+		M->ZB7_LOCALI := CriaVar("ZB7_LOCALI")
+		nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_LOCALI" } )
+		If nEndereco > 0
+			aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := M->ZB7_LOCALI
+		EndIf
+		M->ZB7_NUMSER := CriaVar("ZB7_NUMSER")
+		nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_NUMSER" } )
+		If nEndereco > 0
+			aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := M->ZB7_NUMSER
+		EndIf
+	EndIf
+EndIf
+RestArea(aAreaSB2)
+Return lRet
+
+/*
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³A270Local ³ Autor ³Rodrigo de A Sartorio  ³ Data ³ 28/04/04 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Valida campo de armazem                                    ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Retorno   ³ .T. / .F.                                                  ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA270                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+User Function F270Local()
+
+Local lRet := .T.
+If mv_par01 == 1
+	dbSelectArea("SB2")
+	If !dbSeek(xFilial("SB2")+M->ZB7_COD+M->ZB7_LOCAL) 
+		Help(" ",1,"MA270NSB2")
+		lRet := .F.
+	EndIf
+EndIf
+Return(lRet)
+
+/*
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³A270Conv  ³ Autor ³ Eveli Morasco         ³ Data ³ 11/03/92 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Calcula e inicializa a quantidade principal ou secundaria  ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA270                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+User Function F270Conv()
+Local nEndereco,nEnd1,nEnd2,nX
+Local cQual,nQuant
+cQual  := Subs(ReadVar(),4,Len(ReadVar()))
+dbSelectArea("SB1")
+dbSeek(xFilial("SB1")+M->ZB7_COD)
+If cQual == "ZB7_QUANT"
+	nQuant := M->ZB7_QTSEGUM := ConvUm(B1_COD,M->ZB7_QUANT,M->ZB7_QTSEGUM,2)
+	cQual  := "ZB7_QTSEGUM"
+Else
+	nQuant := M->ZB7_QUANT   := ConvUm(B1_COD,M->ZB7_QUANT,M->ZB7_QTSEGUM,1)
+	cQual  := "ZB7_QUANT"
+EndIf
+nEndereco := Ascan(aGets,{ |x| Subs(x,9,Len(cQual)) == cQual } )
+If nEndereco > 0
+	nEnd1 := Val(Subs(aGets[nEndereco],1,2))
+	nEnd2 := Val(Subs(aGets[nEndereco],3,1))*2
+	dbSelectArea("SX3")
+	dbSetOrder(2)
+	dbSeek(cQual)
+	dbSetOrder(1)
+	aTela[nEnd1][nEnd2] := Trans(nQuant,Trim(SX3->X3_PICTURE))
+EndIf
+Return .T.
+
+/*
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³A270VldLot³ Autor ³ Rodrigo de A. Sartorio³ Data ³ 16/04/96 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Valida o numero do lote com o produto.                     ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Retorno   ³ .T. / .F.                                                  ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA270                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+User Function F270VldLot()
+Local cLote    :=&(ReadVar()),nEndereco,lRet:=.T.
+Local cOldAlias:=Alias(),nOldOrder,nOldRecno
+Local cLocalCQ := SuperGetMV("MV_CQ",.F.,"98") 
+
+If Rastro(M->ZB7_COD)
+	If "M->ZB7_NUMLOT" $ ReadVar()
+		If Rastro( M->ZB7_COD, "S" )
+			dbSelectArea("SB8")
+			nOldOrder:=IndexOrd()
+			nOldRecno:=Recno()
+			dbSetOrder(2)
+			If dbSeek(xFilial("SB8")+cLote) .And. B8_PRODUTO + B8_LOCAL == ;
+					M->ZB7_COD + M->ZB7_LOCAL
+				If cLocalCQ == B8_LOCAL .And. B8_ORIGLAN != "CQ"
+					Help (" ",1,"A270LOTCQ")
+					lRet:=.F.
+				EndIf
+				If lRet
+					nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_NUMLOT" } )
+					If nEndereco > 0
+						aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := M->ZB7_NUMLOT
+					EndIf
+					M->ZB7_LOTECT:=SB8->B8_LOTECTL
+					nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_LOTECT" } )
+					If nEndereco > 0
+						aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := B8_LOTECTL
+					EndIf
+					M->ZB7_DTVALI:=SB8->B8_DTVALID
+					nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_DTVALI" } )
+					If nEndereco > 0
+						aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := DTOC(B8_DTVALID)
+					EndIf
+
+					M->ZB7_NUMDOC:=SB8->B8_DOC
+					nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_NUMDOC " } )
+					If nEndereco > 0
+						aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := B8_DOC
+					EndIf
+
+					M->ZB7_SERIE:=SB8->B8_SERIE
+					nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_SERIE  " } )
+					If nEndereco > 0
+						aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := SerieNfId("SB8",2,"B8_SERIE")
+					EndIf
+
+					M->ZB7_FORNECE:=SB8->B8_CLIFOR
+					nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_FORNECE" } )
+					If nEndereco > 0
+						aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := B8_CLIFOR
+					EndIf
+
+					M->ZB7_LOJA:=SB8->B8_LOJA
+					nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_LOJA   " } )
+					If nEndereco > 0
+						aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := B8_LOJA
+					EndIf
+
+				EndIf
+			Else
+				If mv_par01 == 1
+					Help (" ",1,"A270LOTERR")
+					lRet:=.F.
+				EndIf
+				nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_NUMLOT" } )
+				If nEndereco > 0
+					M->ZB7_NUMLOT:=aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2]
+				EndIf
+				nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_LOTECT" } )
+				If nEndereco > 0
+					M->ZB7_LOTECT:=aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2]
+				EndIf
+			EndIf
+			dbSetOrder(nOldOrder)
+			dbGoto(nOldRecno)
+		Else
+			nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_NUMLOT" } )
+			If nEndereco > 0
+				aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := CriaVar("ZB7_NUMLOT")
+			EndIf
+			M->ZB7_NUMLOT := CriaVar( "ZB7_NUMLOT" )
+		EndIf
+	Else
+		If Rastro( M->ZB7_COD, "S" )
+			dbSelectArea( "SB8" )
+			dbSetOrder( 3 )
+			If dbSeek( xFilial( "SB8" ) + M->ZB7_COD + M->ZB7_LOCAL + cLote + M->ZB7_NUMLOT, .F.) .Or. ;
+					dbSeek( xFilial( "SB8" ) + M->ZB7_COD + M->ZB7_LOCAL + cLote, .F.)
+				nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_NUMLOT" } )
+				If nEndereco > 0
+					aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := B8_NUMLOTE
+				EndIf
+				M->ZB7_NUMLOT := SB8->B8_NUMLOTE
+				nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_DTVALI" } )
+				If nEndereco > 0
+					aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := DTOC(B8_DTVALID)
+				EndIf
+				M->ZB7_DTVALI := SB8->B8_DTVALID
+				M->ZB7_NUMDOC:=SB8->B8_DOC
+				nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_NUMDOC " } )
+				If nEndereco > 0
+					aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := B8_DOC
+				EndIf
+
+				M->ZB7_SERIE:=SB8->B8_SERIE
+				nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_SERIE  " } )
+				If nEndereco > 0
+					aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := SerieNfId("SB8",2,"B8_SERIE")
+				EndIf
+
+				M->ZB7_FORNECE:=SB8->B8_CLIFOR
+				nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_FORNECE" } )
+				If nEndereco > 0
+					aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := B8_CLIFOR
+				EndIf
+
+				M->ZB7_LOJA:=SB8->B8_LOJA
+				nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_LOJA   " } )
+				If nEndereco > 0
+					aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := B8_LOJA
+				EndIf
+			Else
+				If mv_par01 == 1
+					Help (" ",1,"A270LOTERR")
+					lRet := .F.
+				EndIf
+			EndIf
+		Else
+			dbSelectArea( "SB8" )
+			dbSetOrder( 3 )
+			If dbSeek( xFilial( "SB8" ) + M->ZB7_COD + M->ZB7_LOCAL + cLote )
+				nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_DTVALI" } )
+				If nEndereco > 0
+					aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := DTOC(B8_DTVALID)
+				EndIf
+				M->ZB7_DTVALI := SB8->B8_DTVALID
+
+				M->ZB7_NUMDOC:=SB8->B8_DOC
+				nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_NUMDOC " } )
+				If nEndereco > 0
+					aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := B8_DOC
+				EndIf
+
+				M->ZB7_SERIE:=SB8->B8_SERIE
+				nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_SERIE  " } )
+				If nEndereco > 0
+					aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := SerieNfId("SB8",2,"B8_SERIE")
+				EndIf
+
+				M->ZB7_FORNECE:=SB8->B8_CLIFOR
+				nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_FORNECE" } )
+				If nEndereco > 0
+					aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := B8_CLIFOR
+				EndIf
+
+				M->ZB7_LOJA:=SB8->B8_LOJA
+				nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_LOJA   " } )
+				If nEndereco > 0
+					aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := B8_LOJA
+				EndIf
+
+			Else
+				If mv_par01 == 1
+					Help (" ",1,"A270LOTERR")
+					lRet := .F.
+				EndIf
+			EndIf
+		EndIf
+	EndIf
+Else
+	//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+	//³ Se nao utiliza rastreabilidade ³
+	//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+	Help (" ",1,"A270LOTEIG")
+	M->ZB7_NUMLOT:=CriaVar("B8_NUMLOTE")
+	nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_NUMLOT" } )
+	If nEndereco > 0
+		aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := M->ZB7_NUMLOT
+	EndIf
+	M->ZB7_LOTECT:=CriaVar("B8_LOTECTL")
+	nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_LOTECT" } )
+	If nEndereco > 0
+		aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := M->ZB7_LOTECT
+	EndIf
+	M->ZB7_DTVALI:=CriaVar("B8_DTVALID")
+	nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_DTVALI" } )
+	If nEndereco > 0
+		aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := DTOC(M->ZB7_DTVALI)
+	EndIf
+EndIf
+dbSelectArea(cOldAlias)
+Return lRet
+
+/*
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³A270NumSer³ Autor ³Tatiane Marques Santos ³ Data ³ 03/07/08 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Verifica prenchimento do campo serie                       ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Retorno   ³ .T. / .F.                                                  ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA270                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+User Function F270NumSer()
+//Local cVar:=ReadVar(),cConteudo:=&(ReadVar())
+Local cAlias := Alias()
+Local nRecno := Recno()
+Local nOrdem := IndexOrd()
+Local cCod   := M->ZB7_COD
+Local lRet	 := .T.
+
+If !Localiza(cCod)
+	//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+	//³ Se nao controla endereco ³
+	//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+	Help (" ",1,"A270LOCAIG")	
+	M->ZB7_LOCALI := CriaVar("ZB7_LOCALI")
+	nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_LOCALI" } )
+	If nEndereco > 0
+		aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := M->ZB7_LOCALI
+	EndIf
+	M->ZB7_NUMSER := CriaVar("ZB7_NUMSER")
+	nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_NUMSER" } )
+	If nEndereco > 0
+		aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := M->ZB7_NUMSER
+	EndIf
+EndIf
+dbSelectArea(cAlias)
+dbSetOrder(nOrdem)
+dbGoTo(nRecno)
+Return lRet
+
+/*ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³A270Locali³ Autor ³ Emerson Rony Oliveira ³ Data ³29/10/2008³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡ao ³ Validacao do campo ZB7_LOCALI                              ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Retorno   ³ .T. / .F.                                                  ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA270                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß*/
+User Function F270Locali()
+Local cAlias := Alias()
+Local nRecno := Recno()
+Local nOrdem := IndexOrd()
+Local lRet   := .T.
+
+//original : IF(Localiza(M->ZB7_COD),Vazio() .Or. ExistCpo("SBE",M->ZB7_LOCAL+M->ZB7_LOCALI),Vazio())
+If Localiza(M->ZB7_COD)
+	//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+	//³ Verifica a existencia do endereco informado. 	|
+	//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+	If !Empty(M->ZB7_LOCALI) .And. !ExistCpo("SBE",M->ZB7_LOCAL+M->ZB7_LOCALI,1)
+		lRet:=.F.
+	EndIf
+Else
+	//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+	//³ Se nao controla endereco ³
+	//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+	Help (" ",1,"A270LOCAIG")	
+	M->ZB7_LOCALI := CriaVar("ZB7_LOCALI")
+	nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_LOCALI" } )
+	If nEndereco > 0
+		aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := M->ZB7_LOCALI
+	EndIf
+	M->ZB7_NUMSER := CriaVar("ZB7_NUMSER")
+	nEndereco := Ascan(aGets,{ |x| Subs(x,9,10) == "ZB7_NUMSER" } )
+	If nEndereco > 0
+		aTela[Val(Subs(aGets[nEndereco],1,2))][Val(Subs(aGets[nEndereco],3,1))*2] := M->ZB7_NUMSER
+	EndIf
+EndIf
+
+dbSelectArea(cAlias)
+dbSetOrder(nOrdem)
+dbGoTo(nRecno)
+
+Return lRet
+
+/*
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³A270TudoOk³ Autor ³    Marcos Simidu      ³ Data ³ 03/12/96 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Valida se o produto ja esta cadastrado nesta data          ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Retorno   ³ .T. / .F.                                                  ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA270                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+Static Function F270TudoOk()
+Local lRet      := .T.
+Local aArea     := GetArea()
+Local dDataFec  := MVUlmes()
+Local nOldOrder
+Local nOldRecno
+
+//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+//³Verifica se tem permissao de armazem  |
+//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+lRet := MaAvalPerm(3,{M->ZB7_LOCAL,M->ZB7_COD})
+//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+//³ Verificar data do ultimo fechamento em SX6.                  ³
+//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+If dDataFec >= M->ZB7_DATA
+	Help ( " ", 1, "FECHTO" )
+	lRet := .F.
+EndIf
+
+If lRet
+	lRet := SldBlqSB2(M->ZB7_COD,M->ZB7_LOCAL)
+EndIf
+
+If lRet .And. Rastro(M->ZB7_COD)
+	//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+	//³ Valida o conteudo dos campos ZB7_LOTECT/ZB7_NUMLOT	 |
+	//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+	If Empty(M->ZB7_LOTECT)
+		Help("",1,"A270LOTOBR")
+		lRet:=.F.
+	EndIf
+	If lRet .And. Rastro(M->ZB7_COD,"S")
+		If Empty(M->ZB7_NUMLOT)
+			Help("",1,"A270LOTOBR")
+			lRet:=.F.
+		EndIf
+	ElseIf lRet .And. !Empty(M->ZB7_NUMLOT)
+		Help("",1,"A270NLOTE")
+		M->ZB7_NUMLOT := CriaVar("ZB7_NUMLOT",.F.)
+	EndIf
+
+	If lRet
+		dbSelectArea("SB8")
+		nOldOrder:=IndexOrd()
+		nOldRecno:=Recno()
+		If Rastro(M->ZB7_COD,"S")
+			dbSetOrder(2)
+			If dbSeek(xFilial("SB8")+M->ZB7_NUMLOT+M->ZB7_LOTECT+M->ZB7_COD+M->ZB7_LOCAL)
+				//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+				//³ Ajusta a data de validade para data original |
+				//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+				If !(M->ZB7_DTVALI == SB8->B8_DTVALID)
+					If !l270Auto
+						Help("",1,"A240DTVALI")
+					EndIf
+					M->ZB7_DTVALI := SB8->B8_DTVALID
+				EndIf
+			Else
+				If mv_par01 == 1
+					lRet:=.F.
+				EndIf
+			EndIf
+		Else
+			dbSetOrder(3)
+			If dbSeek(xFilial("SB8")+M->ZB7_COD+M->ZB7_LOCAL+M->ZB7_LOTECT)
+				//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+				//³ Ajusta a data de validade para data original |
+				//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+				If !(M->ZB7_DTVALI == SB8->B8_DTVALID)
+					If !l270Auto
+						Help("",1,"A240DTVALI")
+					EndIf
+					M->ZB7_DTVALI := SB8->B8_DTVALID
+				EndIf
+			Else
+				If mv_par01 == 1
+					lRet:=.F.
+				EndIf
+			EndIf
+		EndIf
+		If !lRet
+			Help("",1,"A270LOTERR")
+		EndIf
+		dbSetOrder(nOldOrder)
+		dbGoTo(nOldRecno)
+	EndIf
+Else
+	lLote:=.T.
+EndIf
+If lRet .And. Localiza(M->ZB7_COD)
+	If lRet .And. (Empty(M->ZB7_LOCALI) .And. Empty(M->ZB7_NUMSER))
+		Help(" ",1,"LOCALIZOBR")
+		lRet:=.F.
+	EndIf
+	//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+	//³ Verifica a existencia do endereco informado. 	|
+	//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+	If lRet .And. !Empty(M->ZB7_LOCALI) .And. !ExistCpo("SBE",M->ZB7_LOCAL+M->ZB7_LOCALI,1)
+		lRet:=.F.
+	EndIf
+	If lRet .And. IntDL(M->ZB7_COD) .And. !Empty(M->ZB7_TPESTR)
+		SBE->(dbSetOrder(1))
+		If SBE->(dbSeek(xFilial("SBE")+M->ZB7_LOCAL+M->ZB7_LOCALI) .And. BE_ESTFIS<>M->ZB7_TPESTR)
+			Help( " ", 1, "REGNOIS",, RetTitle("ZB7_TPESTR"), 4, 1 )
+			lRet:=.F.
+		EndIf
+	EndIf
+	If lRet .And. !Empty(M->ZB7_NUMSER)
+		dbSelectArea("SB1")
+		dbSetOrder(1)
+		If dbSeek(xFilial("SB1")+M->ZB7_COD)
+			If SB1->B1_QTDSER = 0 .Or. SB1->B1_QTDSER = 1
+				If M->ZB7_QUANT # 1 .And. M->ZB7_QUANT # 0
+					Help(" ",1,"QUANTSERIE")
+					lRet:=.F.
+				EndIf
+			Else
+				If M->ZB7_QTSEGUM # 1 .And. M->ZB7_QTSEGUM # 0
+					Help(" ",1,"QUANTSERIE")
+					lRet:=.F.
+				EndIf
+			EndIf
+		EndIf
+		// Valida se existe uma digitacao para o mesmo numero de serie na mesma data
+		If lRet .And. Inclui
+			ZB7->(dbSetOrder(1))
+			If ZB7->(dbSeek(xFilial("ZB7")+DTOS(M->ZB7_DATA)+M->ZB7_COD+M->ZB7_LOCAL+M->ZB7_LOCALI+M->ZB7_NUMSER+M->ZB7_LOTECT+M->ZB7_NUMLOT+IIF(UsaContage(),M->ZB7_CONTAGE,"")))
+				Help(" ",1,"JAGRAVADO")
+				lRet:=.F.
+			EndIf
+		EndIf
+	EndIf
+EndIf
+
+RestArea(aArea)
+Return lRet
+
+/*
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³ SHOWF4   ³ Autor ³ Rodrigo de A. Sartorio³ Data ³ 29/11/95 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Chamada da funcao F4LOTE                                   ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA270                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+Static Function ShowF4()
+
+If AllTrim(Upper(ReadVar())) $ 'M->ZB7_NUMLOTúM->ZB7_LOTECT'
+	F4Lote(,,,"A270",M->ZB7_COD,M->ZB7_LOCAL,.F.)
+ElseIf AllTrim(Upper(ReadVar())) $ 'M->ZB7_LOCALI'
+	F4Localiz(,,,"A270",M->ZB7_COD,M->ZB7_LOCAL)
+EndIf
+Return NIL
+
+/*
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³INV270PERG³ Autor ³ Rodrigo de A. Sartorio³ Data ³ 16/04/01 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Chamada da funcao PERGUNTE                                 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA270                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+Static Function INV270PERG()
+Pergunte("INV270",.T.)
+Return NIL
+
+/*
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³A270TDOK  ³ Autor ³ Rodrigo de A. Sartorio³ Data ³ 21/05/04 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Chamada da funcao para validar se exclui ou nao registro   ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Retorno   ³ .T. / .F.                                                  ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA270                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+Static Function A270TDOK()
+Local lRet:=.T.
+Local aArea:=GetArea()
+dbSelectArea("SB2")
+dbSetOrder(1)
+
+If lRet
+	If dbSeek(xFilial("SB2")+ZB7->ZB7_COD+ZB7->ZB7_LOCAL) .And. (SB2->B2_DINVENT == ZB7->ZB7_DATA)
+		lRet:=(Aviso(OemToAnsi(STR0010),OemToAnsi(STR0011),{OemToAnsi(STR0008),OemToAnsi(STR0007)},1) == 1) //"Atencao"###"Ja foi processado inventario para este produto neste armazem e data , confirma a exclusao ?"
+	EndIf
+EndIf
+
+RestArea(aArea)
+Return lRet
+
+/*
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³A270VlCont³ Autor ³Rodrigo de A Sartorio  ³ Data ³ 07/08/04 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Valida a contagem digitada                                 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Retorno   ³ .T. / .F.                                                  ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA270                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+User Function F270VlCont(cContagem)
+Local lRet 		:= .T. 			// variavel de retorno
+Default cContagem	:= &(ReadVar())	// variavel que informa a contagem digitada
+
+If UsaContage()
+
+	If l270Auto .And. ALTERA
+			Return(.T.)
+	Endif
+	
+	If !Empty(cContagem)
+		// Checa contagem repetida
+		lRet := ExistChav("ZB7",DTOS(M->ZB7_DATA)+M->ZB7_COD+M->ZB7_LOCAL+M->ZB7_LOCALI+M->ZB7_NUMSER+M->ZB7_LOTECT+M->ZB7_NUMLOT+cContagem)
+	Else
+		Help("", 1, "MT270CNTOBR") // A informação da contagem é obrigatória. - É obrigatório informar a contagem quando o parâmetro MV_CONTINV está ativo.
+		lRet := .F.		
+	EndIf
+EndIf
+
+Return lRet
+
+/*
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³UsaContage³ Autor ³Rodrigo de A Sartorio  ³ Data ³ 09/08/04 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Verifica a existencia de campos para controle de contagem  ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Sintaxe   ³ ExpL1:=UsaContage()                                        ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Retorno   ³ ExpL1 = Indica se utiliza controle de contagem ou nao      ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA270                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+Static Function UsaContage()
+Return(.F.)
+
+/*/
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Programa  ³MenuDef   ³ Autor ³ Fabio Alves Silva     ³ Data ³04/10/2006³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Utilizacao de menu Funcional                               ³±±
+±±³          ³                                                            ³±±
+±±³          ³                                                            ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Retorno   ³Array com opcoes da rotina.                                 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Parametros³Parametros do array a Rotina:                               ³±±
+±±³          ³1. Nome a aparecer no cabecalho                             ³±±
+±±³          ³2. Nome da Rotina associada                                 ³±±
+±±³          ³3. Reservado                                                ³±±
+±±³          ³4. Tipo de Transa‡„o a ser efetuada:                        ³±±
+±±³          ³    1 - Pesquisa e Posiciona em um Banco de Dados           ³±±
+±±³          ³    2 - Simplesmente Mostra os Campos                       ³±±
+±±³          ³    3 - Inclui registros no Bancos de Dados                 ³±±
+±±³          ³    4 - Altera o registro corrente                          ³±±
+±±³          ³    5 - Remove o registro corrente do Banco de Dados        ³±±
+±±³          ³5. Nivel de acesso                                          ³±±
+±±³          ³6. Habilita Menu Funcional                                  ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³   DATA   ³ Programador   ³Manutencao efetuada                         ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³          ³               ³                                            ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+/*/
+Static Function MenuDef()
+
+Local aRotinaNew := {}
+Private aRotina	:= {	{STR0001,"AxPesqui"  , 0, 1,0, .F.},; //"Pesquisar"
+						{STR0002,"u_F270Visual", 0, 2,0, nil},; //"Visualizar"
+						{STR0003,"u_F270Inclui", 0, 3,17,nil},; //"Incluir"
+						{STR0004,"u_F270Altera", 0, 4,17,nil},; //"Alterar"
+						{STR0005,"u_F270Deleta", 0, 5,17,nil} } //"Excluir"
+Return (aRotina)
+
+/*
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÉÍÍÍÍÍÍÍÍÍÍÑÍÍÍÍÍÍÍÍÍÍËÍÍÍÍÍÍÍÑÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍËÍÍÍÍÍÍÑÍÍÍÍÍÍÍÍÍÍÍÍÍ»±±
+±±ºPrograma  ³IntegDef  ºAutor  ³ Leandro Paulino  º Data ³  01/02/12       º±±
+±±ÌÍÍÍÍÍÍÍÍÍÍØÍÍÍÍÍÍÍÍÍÍÊÍÍÍÍÍÍÍÏÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÊÍÍÍÍÍÍÏÍÍÍÍÍÍÍÍÍÍÍÍÍ¹±±
+±±ºDescricao ³ Mensagem Única																 º±±
+±±ÌÍÍÍÍÍÍÍÍÍÍØÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¹±±
+±±ºUso       ³ Integrações                                               	 º±±
+±±ÈÍÍÍÍÍÍÍÍÍÍÏÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+Static Function IntegDef( cXML, nTypeTrans, cTypeMessage )
+
+Local aRet := {}
+//a funcao integdef original foi transferida para o fonte mati270, conforme novas regras de mensagem unica.
+aRet:= MATI270( cXml, nTypeTrans, cTypeMessage )
+
+Return aRet
+

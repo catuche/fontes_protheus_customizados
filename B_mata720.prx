@@ -1,0 +1,1471 @@
+#Include "BMATA720.CH"
+#include "PROTHEUS.ch" 
+                                                    
+#DEFINE _ENTER CHR(13)+CHR(10) 
+
+/*
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Descri‡…o ³ PLANO DE MELHORIA CONTINUA                                 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ITEM PMC  ³ Responsavel              ³ Data                            ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³      01  ³                          ³                                 ³±±
+±±³      02  ³Erike Yuri da Silva       ³16/12/2005                       ³±±
+±±³      03  ³                          ³                                 ³±±
+±±³      04  ³                          ³                                 ³±±
+±±³      05  ³                          ³                                 ³±±
+±±³      06  ³                          ³                                 ³±±
+±±³      07  ³Erike Yuri da Silva       ³16/12/2005                       ³±±
+±±³      08  ³                          ³                                 ³±±
+±±³      09  ³                          ³                                 ³±±
+±±³      10  ³                          ³                                 ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+/*/	
+
+/*
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡„o    ³ MATA720  ³ Autor ³ Ary Medeiros          ³ Data ³ 02/06/93 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡„o ³ Aglutinacao de Ordens de Producao                          ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ Generico                                                   ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³         ATUALIZACOES SOFRIDAS DESDE A CONSTRU€AO INICIAL.             ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Programador ³ Data   ³ BOPS ³  Motivo da Alteracao                     ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Marcelo Pim.³15/01/98³xxxxxx³Controle de Saldos em unidade de medida.  ³±±
+±±³Edson  M.   ³16/01/98³xxxxxx³Inclusao do Campo C2_SLDOP.               ³±±
+±±³Edson  M.   ³19/01/98³12672A³Inclusao da Pergunta MV_PAR06.            ³±±
+±±³Edson  M.   ³02/02/98³XXXXXX³Subst. do Campo C2_SLDOP por Funcao.      ³±±
+±±³Rodrigo Sart³13/05/98³14215A³Acerto p/ considerar opcionais na rotina  ³±±
+±±³            ³        ³      ³de aglutinacao.                           ³±±
+±±³Eduardo     ³25/06/98³16726A³ Acerto numeracao SC1/SC2/SC7             ³±±
+±±³Rodrigo Sart³19/08/98³XXXXXX³Correcao no indice condicional            ³±±
+±±³Rodrigo Sart³27/08/98³XXXXXX³Inclusao de parametro para manter as OPs  ³±±
+±±³            ³        ³      ³intermediarias amarradas as OPs PAIS      ³±±
+±±³Rodrigo Sart³05/10/98³XXXXXX³Acerto ref. variavel nao existe SEQPAI    ³±±
+±±³Fernando J. ³26/07/99³22064A³Inclus„o de Pergunta MV_PAR08 para atuali-³±±
+±±³            ³        ³      ³zar Pedido de Vendas.                     ³±±
+±±³Rodrigo Sart³26/08/99³XXXXXX³Criacao PE A720OP                         ³±±
+±±³Patricia Sal³03/12/99³25460A³Inclusao da Pergunta mv_par09/mv_par10    ³±±
+±±³Iuspa       ³13/12/00³Kelly ³Inclusao da Pergunta mv_par11/mv_par12    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+User Function B_MATA720
+Local oDlg 
+Local oUsado
+Local cSavAlias := Alias()
+Local nPeriodo  := 0
+Local aStru     := {}
+Local aTam      := {}
+Local cPerg     := "MTA720"
+Local cTexto    := ""
+Local bProcess  := {|oSelf|MTA720BECK(oSelf)}
+Local aInfoProc := {}
+Local lUsaNewPrc := If(FindFunction('UsaNewPrc'),UsaNewPrc(),.F.)
+Private cCadastro := OemToAnsi(STR0001)	//"Aglutina OPs"
+Private nRegiao   := 1
+Private aTipo     := {}
+Private aGrupo    := {}
+Private aOpcoes[5][6]
+Private nNivel    := 1
+Private aPeriodos := {}
+Private cMarca    := GetMark()             
+Private nUsado    := 1
+
+// Checa versao do programa PCPXFUN quando utiliza integracao QIP
+// Isto porque a funcao OPGeraQIP esta no PCPXFUN
+If IntQIP() .And. !(FindFunction("PCPXFUN_V") .And. PCPXFUN_V() >= 20090630)
+	Final(STR0035) //"Atualizar PCPXFUN.PRX!!!"
+EndIf
+
+If ChkBatchOP()
+	Help(" ",1,"A720OPSFIL")
+Else
+	AjustaSX1() //-- Efetua ajuste no SX1
+	If GetRpoRelease() >= "R1.1" .And. lUsaNewPrc
+		cTexto := STR0028 +_ENTER        //"Esta rotina permite que as ordens de produção e os empenhos de um mesmo produto sejam "
+		cTexto += STR0029 +_ENTER        //"aglutinadas, conforme períodos definidos: diário, semanal, quinzenal, mensal, "
+		cTexto += STR0030 +_ENTER+_ENTER //"trimestral e semestral."
+		cTexto += STR0031 +_ENTER        //"A aglutinação se faz necessária para diminuir o número de ordens de produção, "
+		cTexto += STR0032                //"facilitando o controle e o uso."
+		//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+		//³ AInfoProc                                              |
+		//³ AInfoProc[1] - Titulo                                  |
+		//³ AInfoProc[2] - Bloco de Codigo a ser Executado         |
+		//³ AInfoProc[3] - Resource (BitMap)                       |
+		//³ AInfoProc[4,1] - Array contendo Cabecalho              |
+		//³ AInfoProc[4,2] - Array contendo os Itens               |
+		//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+		Aadd(aInfoProc,{STR0025,{|oMainPanel| SelPeriodo(oMainPanel,@oUsado) },"BTCALEND_MDI"}) //"Periodicidade"
+		//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+		//³ Sintaxe da tNewProcess():New( cFunction, cTitle, bProcess, cDescription, cPerg, aInfoCustom ) |
+		//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+		tNewProcess():New( "B_MATA720",OemToAnsi(STR0001),bProcess,cTexto,cPerg,aInfoProc )
+	Else
+		//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+		//³ Verifica as perguntas selecionadas                           	³
+		//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+		Pergunte(cPerg,.F.)
+		//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+		//³ Variaveis utilizadas para parametros                            ³
+		//³ mv_par01        	// Da OP                                    ³
+		//³ mv_par02        	// Ate a OP                                 ³
+		//³ mv_par03        	// Data de                                  ³
+		//³ mv_par04        	// Data ate                                 ³
+		//³ mv_par05        	// Considera j  Aglutinadas  1-Sim  2-N„o   ³
+		//³ mv_par06        	// Num. Inicial da Op Aglutinada.           ³
+		//³ mv_par07        	// Considera Niveis                         ³
+		//³ mv_par08        	// Atualiza Pedido de Venda ? 1-Sim 2-N„o   ³
+		//³ mv_par09        	// De Almoxarifado                          ³
+		//³ mv_par10        	// Ate Almoxarifado                         ³
+		//³ mv_par11        	// De Produto                               ³
+		//³ mv_par12        	// Ate Produto                              ³
+		//³ mv_par13        	// OP Normal em Grade         1-Sim 2-Nao   ³
+		//³ mv_par14        	// Dt. Prev. Fim a Cons. ?  1-Menor 2-Maior ³
+		//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+		DEFINE MSDIALOG oDlg FROM  119,5 TO 323,605 TITLE cCadastro PIXEL
+
+		@ 15,135 TO 50,280 OF oDlg  PIXEL
+		@ 25,140 SAY OemToAnsi(STR0003) SIZE 130, 7 OF oDlg PIXEL	//"Este programa permite que as ordens de produ‡„o de"
+		@ 32,140 SAY OemToAnsi(STR0004) SIZE 130, 7 OF oDlg PIXEL	//"um mesmo produto sejam aglutinadas conforme os"
+		@ 39,140 SAY OemToAnsi(STR0005) SIZE 130, 7 OF oDlg PIXEL	//"per¡odos definidos ao lado."
+		
+		//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+		//³Montagem das opcoes da Periodicidade para Aglutinacao³
+		//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+		SelPeriodo(oDlg,@oUsado)
+		
+		DEFINE SBUTTON FROM 78, 196 TYPE 5 ACTION PERGUNTE(cPerg ,.T.) ENABLE OF oDlg
+		DEFINE SBUTTON FROM 78, 223 TYPE 1 ACTION (MTA720BECK(),oDlg:End()) ENABLE OF oDlg
+		DEFINE SBUTTON FROM 78, 250 TYPE 2 ACTION oDlg:End() ENABLE OF oDlg
+		ACTIVATE MSDIALOG oDlg CENTERED
+	EndIf
+EndIf
+
+Return Nil
+
+/*
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³SelPeriodo³ Autor ³ Felipe Nunes de Toledo³ Data ³ 12/07/07 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Monta tela para selecao da Periodicidade                   ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Parametros³oDlg   = Objeto Dialog                                      ³±±
+±±³          ³oUsado = Objeto Radio                                       ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA720                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+Static Function SelPeriodo(oDlg,oUsado)
+
+@ 15, 20 TO 90,120 LABEL OemToAnsi(STR0002) OF oDlg  PIXEL	//"Per¡odos para a Aglutina‡„o"
+@ 25,25 RADIO oUsado VAR nUsado 3D SIZE 70,10 PROMPT  OemToAnsi(STR0006),;	//"Per¡odo Di rio"
+OemToAnsi(STR0007),;	//"Per¡odo Semanal"
+OemToAnsi(STR0008),;	//"Per¡odo Quinzenal"
+OemToAnsi(STR0009),;	//"Per¡odo Mensal"
+OemToAnsi(STR0010),;	//"Per¡odo Trimestral"
+OemToAnsi(STR0011) OF oDlg PIXEL	//"Per¡odo Semestral"
+
+Return Nil
+
+/*
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³A720Aglut ³ Autor ³ Ary Medeiros          ³ Data ³ 02/06/93 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Processa a aglutinacao das Ordens de Producao              ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA720                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+Static Function A720AglBK(nTipo)
+Local cProduto  := ""
+Local cRoteiro  := ""
+Local cOpcional := ""
+Local dData     := CtoD('  /  /  ')
+Local cIndex    := ""
+Local cKey      := ""
+Local cCond     := ""
+Local cTpOP     := ""
+Local cRevisao  := ""
+Local lAglut    := .T.
+Local nOrdem    := 0
+Local nRec      := 0
+Local nIndex    := 0
+Local dDataIni  := CtoD('  /  /  ')
+Local dDataFim  := CtoD('  /  /  ')
+Local cSeqPai   := ""
+Local cCompara  := ""
+Local cCampos   := ""
+Local nRecSC2   := 0
+Local nOrderSC2 := 0
+Local nRecTRB   := 0
+Local cProdPai  := ""
+Local cNumOp    := ""
+Local cDescric  := ""
+
+cIndex := CriaTrab(nil,.f.)
+dbSelectArea("SC2")
+cKey :="C2_FILIAL+C2_PRODUTO+C2_ROTEIRO+C2_OPC+DTOS(C2_DATPRF)+C2_REVISAO"
+cCond:= 'DTOS(C2_DATRF) == "        " .and. C2_FILIAL == "'
+cCond+= xFilial("SC2")+ '" .and. C2_QUJE == 0 .and. C2_PERDA == 0 .and. '
+cCond+= 'DTOS(C2_DATPRF) >= "'+DtoS(mv_par03)+ '" .and. DTOS(C2_DATPRF) <= "'+DtoS(mv_par04)+'" .and. '
+cCond+= 'C2_LOCAL>="'+ mv_par09+'".and.C2_LOCAL<="'+ mv_par10+'" .and. '
+cCond+= 'C2_PRODUTO>="'+mv_par11+'".and.C2_PRODUTO<="'+mv_par12+'"'
+cCond+= ' .and. C2_TPOP = "P" .and. C2_SEQUEN = "001"'
+IndRegua("SC2",cIndex,cKey,,cCond,STR0012)	//"Selecionando Registros..."
+nIndex := RetIndex("SC2")
+#IFNDEF TOP
+	DbSetIndex(cIndex+OrdBagExt())
+#ENDIF
+dbSetOrder(nIndex+1)
+dbSeek(xFilial("SC2"))
+lSkip := .F.
+While !Eof() .And. SC2->C2_FILIAL == xFilial("SC2")              
+	cProduto := SC2->C2_PRODUTO
+	cRoteiro := SC2->C2_ROTEIRO
+	cOpcional:= SC2->C2_OPC
+	cTpOp    := SC2->C2_TPOP
+	cSeqPai	 := SC2->C2_SEQPAI
+	cRevisao := SC2->C2_REVISAO
+	dDataIni := CtoD('  /  /  ')
+	dDataFim := CtoD('  /  /  ')
+	cDescric := ""
+	cCampos :="C2_FILIAL+C2_PRODUTO+C2_ROTEIRO+C2_OPC+C2_REVISAO"
+	cCompara:=xFilial("SC2")+cProduto+cRoteiro+cOpcional+cRevisao
+	While !Eof() .And. cCompara == &(cCampos)  
+		If !Empty(SC2->C2_AGLUT) .And. mv_par05 == 2
+			dbSkip()
+			Loop
+		EndIf           
+		dData    := SC2->C2_DATPRF
+		nOrdem   := 1
+		dDataIni := CtoD('  /  /  ')
+		dDataFim := CtoD('  /  /  ')
+		//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+		//³ Verifica se existe outra OP a ser aglutinada, para nao      ³
+		//³ aglutinar OP de 1 para 1                                    ³
+		//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+		nRec := SC2->( RecNo() )
+		SC2->( dbSkip() )
+		If !(A720Periodo(dData,SC2->C2_DATPRF,nTipo) .And. cCompara == &(cCampos) .And. IIF(mv_par05 == 2,Empty(SC2->C2_AGLUT),(SC2->C2_AGLUT $ "S ")) .And.;
+			(SC2->C2_NUM+SC2->C2_ITEM+SC2->C2_SEQUEN+SC2->C2_ITEMGRD >= mv_par01 .And. SC2->C2_NUM+SC2->C2_ITEM+SC2->C2_SEQUEN+SC2->C2_ITEMGRD <= mv_par02))
+			Loop
+		EndIf
+		dbGoto(nRec)
+		While A720Periodo(dData,SC2->C2_DATPRF,nTipo) .And. SC2->C2_FILIAL == xFilial("SC2") .And. IIF(mv_par05 == 2,Empty(SC2->C2_AGLUT),(SC2->C2_AGLUT $ "S "))
+			// Menor data prevista de inicio
+			If Empty(dDataIni)
+				dDataIni := SC2->C2_DATPRI
+			ElseIf !Empty(dDataIni) .And. SC2->C2_DATPRI < dDataIni
+				dDataIni := SC2->C2_DATPRI
+			EndIf
+			// Maior data prevista de fim
+			If Empty(dDataFim)
+				dDataFim := SC2->C2_DATPRF
+			ElseIf !Empty(dDataFim) .And. SC2->C2_DATPRF > dDataFim
+				dDataFim := SC2->C2_DATPRF
+			EndIf
+			//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+			//³ Filtro das Ops (De ... Ate)                                 ³
+			//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+			If SC2->(C2_NUM+C2_ITEM+C2_SEQUEN+C2_ITEMGRD) >= mv_par01 .And. SC2->(C2_NUM+C2_ITEM+C2_SEQUEN+C2_ITEMGRD) <= mv_par02
+				If SB1->(dbSeek(xFilial("SB1")+cProduto))
+					cDescric := Left(SB1->B1_DESC,30)
+				EndIf				
+				dbSelectArea("TRB")
+				RecLock("TRB",.T.)
+				Replace MARK      With cMarca
+				Replace NUMOP     With SC2->C2_NUM+SC2->C2_ITEM+SC2->C2_SEQUEN+SC2->C2_ITEMGRD
+				Replace PRODUTO   With SC2->C2_PRODUTO
+				Replace DESCRICAO With cDescric
+				Replace QUANT     With SC2->C2_QUANT
+				Replace INICIO    With dDataIni
+				Replace ENTREGA   With dDataFim
+				Replace ORDEM     With nOrdem++ //-- Utilizado para gravacao do campo D4_ORDEM, evitando chave duplicada (A Chave Unica no SD4 eh D4_FILIAL+D4_COD+D4_OP+D4_TRT+D4_LOTECTL+D4_NUMLOTE+D4_LOCAL+D4_ORDEM+D4_OPORIG)
+				Replace ROTEIRO   With cRoteiro
+				Replace GRADE     With SC2->C2_GRADE
+				Replace ITEMGRD   With SC2->C2_ITEMGRD
+				Replace OPCIONAL  With cOpcional
+				Replace TPOP      With cTpOp
+				Replace SEQPAI    With If(Val(SC2->C2_SEQPAI)==0,"",SC2->C2_SEQPAI)
+ 				Replace REFGRD	  With SB1->B1_GRADE
+ 				Replace REVISAO   With SC2->C2_REVISAO
+				Replace INIOP     With SC2->C2_DATPRI
+				Replace ENTOP     With SC2->C2_DATPRF
+				MsUnlock()
+
+				cAliasTop := "SC2OPINT"
+				cQuery := "SELECT SC2.C2_FILIAL, SC2.C2_NUM, SC2.C2_ITEM, SC2.C2_SEQUEN, SC2.C2_ITEMGRD, "
+				cQuery += "SC2.R_E_C_N_O_ SC2RECNO FROM "+RetSqlName("SC2")+" SC2 WHERE "
+				cQuery += "SC2.C2_FILIAL='"+xFilial("SC2")+"' AND SC2.D_E_L_E_T_=' ' AND "
+				cQuery += "SC2.C2_NUM = '" + SC2->C2_NUM + "' AND "
+				cQuery += "SC2.C2_SEQUEN > '001' AND "
+				cQuery += "SC2.C2_TPOP = 'P'"
+				cQuery := ChangeQuery(cQuery)
+				dbUseArea(.T.,"TOPCONN",TcGenQry(,,cQuery),cAliasTop,.T.,.T.)
+				dbSelectArea(cAliasTop)
+				While !Eof()
+					aadd(_aOPAgl,{ (cAliasTop)->C2_NUM+(cAliasTop)->C2_ITEM+(cAliasTop)->C2_SEQUEN+(cAliasTop)->C2_ITEMGRD, nOrdem})
+					nOrdem++
+					dbSkip()
+				End
+				dbSelectArea(cAliasTop)
+				dbCloseArea()
+			EndIf
+			dbSelectArea("SC2")
+			dbSkip()
+			lSkip := .T.
+			If !(cCompara == &(cCampos))
+				Exit
+			EndIf
+		End
+		If !lSkip
+			dbSkip()
+		EndIf
+		lSkip := .F.
+	End
+End
+dbSelectArea("SC2")
+RetIndex("SC2")
+dbClearFilter()
+Ferase(cIndex+OrdBagExt())
+Return Nil
+/*
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³A720Periodo³ Autor ³ Ary Medeiros          ³ Data ³ 02/06/93 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Verifica se as OPS estao no periodo p/ aglutinacao          ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA720                                                     ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+Static Function A720Periodo(dDatRef,dData,nTipo)
+LOCAL lRet := .f., nMes
+Do Case
+	Case nTipo == 1 // Diario
+		If dDatRef == dData
+			lRet := .T.
+		EndIf
+	Case nTipo == 2 // Semanal
+		While Dow(dDatRef) != 2
+			dDatRef--
+		End
+		If dData < dDatRef + 7
+			lRet := .T.
+		EndIf
+	Case nTipo == 3 // Quinzenal
+		If Month(dDatRef) == Month(dData)
+			If Day(dDatRef) <=15
+				If Day(dData) <= 15
+					lRet := .T.
+				EndIf
+			Else
+				If Day(dData) > 15
+					lRet := .T.
+				EndIf
+			EndIf
+		EndIf
+	Case nTipo == 4 // Mensal
+		If Month(dDatRef) == Month(dData)
+			lRet := .T.
+		EndIf
+	Case nTipo == 5 // Trimestral
+		nRef := Month(dDatRef)
+		nMes := Month(dData)
+		If Year(dData)-Year(dDatRef)==1 		
+			If nRef >=11 .And. nMes <= 2
+				lRet := .T.
+			EndIf		
+		ElseIf nRef >=1 .and. nRef <= 3
+			If nMes >= 1 .and. nMes <= 3
+				lRet := .T.
+			EndIf
+		ElseIf nRef >=4 .and. nRef <= 6
+			If nMes >=4 .and. nMes <= 6
+				lRet := .T.
+			EndIf
+		ElseIf nRef >=7 .and. nRef <= 9
+			If nMes >=7 .and. nMes <= 9
+				lRet := .T.
+			EndIf
+		ElseIf nRef >=10 .and. nRef <= 12
+			If nMes >=10 .and. nMes <= 12
+				lRet := .T.
+			EndIf
+		EndIf
+	Case nTipo == 6 // Semestral
+		If Year(dData)-Year(dDatRef)==1 		
+			If Month(dData)<=6 .And. Month(dDatRef) >=6
+				lRet := .t.
+			EndIf	
+		ElseIf Month(dDatRef) <= 6
+			If Month(dData) <= 6
+				lRet := .t.
+			EndIf
+		Else
+			If Month(dData) > 6
+				lRet := .t.
+			EndIf
+		EndIf
+EndCase
+Return lRet
+
+/*
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³A720Browse ³ Autor ³ Ary Medeiros          ³ Data ³ 02/06/93 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Mostra o Browse para marcacao das OPs                       ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Parametros³oTNewProc = Objeto tNewProcess()                             ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA720                                                     ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+Static Function A720BrwBK(oTNewProc)
+Local oDlg
+Local lCont    := .T.
+Local lInverte := .F.
+Local nOpca    := 0
+Local a720CPU  := {}
+LOCAL aSize := MsAdvSize()
+LOCAL aObjects := {}
+Local aButtons:={}
+Local nJ:=1
+Private inclui := .T.
+
+//AAdd( aButtons, { "S4WB004N", { || AlEtQt(WRB->OP, WRB->PRODUTO, WRB->ORDAD, WRB->QTDETQ, WRB->LOTE) }, "Qtde Etiquetas", "Qtde Etiquetas" } )
+
+AAdd( aObjects, { 100, 100, .T., .T. } )
+aInfo := { aSize[1],aSize[2],aSize[3],aSize[4],3,3}
+aObj  := MsObjSize( aInfo, aObjects, .T. )
+
+dbSelectArea("TRB")
+dbSetOrder(2)
+//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+//³ Redefinicao do aCampos para utilisar no MarkBrow             ³
+//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+aCampos := { 	{"MARK"     ,"A720Marca",STR0013},;  	//"Ok"
+				{"NUMOP"    ,"A720Marca",STR0014},;		//"Ordem de Producao"
+				{"PRODUTO"  ,"A720Marca",STR0015},;	    //"Produto"
+				{"DESCRICAO","A720Marca",STR0023},;	    //"Descricao do Produto"
+				{"QUANT"    ,"A720Marca",STR0016},;		//"Quantidade"
+				{"INIOP"    ,"A720Marca","Dt.Prevista Inicio"},;	//"Inicio"
+				{"ENTOP"    ,"A720Marca","Dt.Prevista Entrega"}}	//"Entrega"
+				
+If ExistBlock("MA720CPU")
+	a720CPU := ExecBlock("MA720CPU",.F.,.F.,{3,aCampos})
+	If ValType(a720CPU) == "A"
+		aCampos := aClone(a720CPU)
+	EndIf
+EndIf
+
+dbGotop()
+If Bof() .and. Eof()
+	Help(" ",1,"RECNO")
+	lCont := .F.
+Else
+	DEFINE MSDIALOG oDlg TITLE OemToAnsi(STR0017) From aSize[7],0 to aSize[6],aSize[5] of oMainWnd PIXEL
+	cAlias:=Alias()
+	oMark := MsSelect():New(cAlias,"MARK",,aCampos,@linverte,cMarca,aObj[1])
+	oMark:oBrowse:lCanAllMark:=.T.
+	oMark:oBrowse:lHasMark	 :=.T.
+	oMark:bMark 			 := {| | A720ESBK(cMarca,@lInverte,@oDlg)}
+	oMark:oBrowse:bAllMark	 := {| | A720MarkABK(cMarca,@oDlg)} 
+	oMark:oBrowse:Align := CONTROL_ALIGN_ALLCLIENT
+	ACTIVATE MSDIALOG oDlg CENTERED ON INIT EnchoiceBar(oDlg,{||nopca:=1,If(MTA720OK(),oDlg:End(),)},{||nopca:=0,oDlg:End()},,aButtons)
+EndIf
+If lCont .And. nOpca == 1
+	//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+	//³ Aglutina Ops                                  ³
+	//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+	If Len(_aOPAgl) > 0
+		dbSelectArea("TRB")
+		_cAreaTRB := GetArea()
+		dbSetOrder(1)
+		For nJ:=1 to Len(_aOPAgl)
+			_cOPPAI := Substr(_aOPAgl[nJ,1],1,8)+"001  "
+			dbSelectArea("TRB")
+			dbSeek(_cOPPAI)
+			If !Empty(TRB->MARK)
+				nOrdem := _aOPAgl[nJ,2]
+				dbSelectArea("SC2")
+				dbSetOrder(1)
+				If dbSeek(xFilial()+_aOPAgl[nJ,1])
+					cProduto := SC2->C2_PRODUTO
+					cRoteiro := SC2->C2_ROTEIRO
+					cOpcional:= SC2->C2_OPC
+					cTpOp    := SC2->C2_TPOP
+					cSeqPai	 := SC2->C2_SEQPAI
+					cRevisao := SC2->C2_REVISAO
+					dDataIni := CtoD('  /  /  ')
+					dDataFim := CtoD('  /  /  ')
+					cDescric := ""
+					If SB1->(dbSeek(xFilial("SB1")+cProduto))
+						cDescric := Left(SB1->B1_DESC,30)
+					EndIf
+					// Menor data prevista de inicio
+					If Empty(dDataIni)
+						dDataIni := SC2->C2_DATPRI
+					ElseIf !Empty(dDataIni) .And. SC2->C2_DATPRI < dDataIni
+						dDataIni := SC2->C2_DATPRI
+					EndIf
+					// Maior data prevista de fim
+					If Empty(dDataFim)
+						dDataFim := SC2->C2_DATPRF
+					ElseIf !Empty(dDataFim) .And. SC2->C2_DATPRF > dDataFim
+						dDataFim := SC2->C2_DATPRF
+					EndIf
+					dbSelectArea("TRB")
+					RecLock("TRB",.T.)
+					Replace MARK      With cMarca
+					Replace NUMOP     With SC2->C2_NUM+SC2->C2_ITEM+SC2->C2_SEQUEN+SC2->C2_ITEMGRD
+					Replace PRODUTO   With SC2->C2_PRODUTO
+					Replace DESCRICAO With cDescric
+					Replace QUANT     With SC2->C2_QUANT
+					Replace INICIO    With dDataIni
+					Replace ENTREGA   With dDataFim
+					Replace ORDEM     With nOrdem++ //-- Utilizado para gravacao do campo D4_ORDEM, evitando chave duplicada (A Chave Unica no SD4 eh D4_FILIAL+D4_COD+D4_OP+D4_TRT+D4_LOTECTL+D4_NUMLOTE+D4_LOCAL+D4_ORDEM+D4_OPORIG)
+					Replace ROTEIRO   With cRoteiro
+					Replace GRADE     With SC2->C2_GRADE
+					Replace ITEMGRD   With SC2->C2_ITEMGRD
+					Replace OPCIONAL  With cOpcional
+					Replace TPOP      With cTpOp
+					Replace SEQPAI    With If(Val(SC2->C2_SEQPAI)==0,"",SC2->C2_SEQPAI)
+					Replace REFGRD	  With SB1->B1_GRADE
+					Replace REVISAO   With SC2->C2_REVISAO
+					Replace INIOP     With SC2->C2_DATPRI
+					Replace ENTOP     With SC2->C2_DATPRF
+					nRecTRB:=Recno()
+					cProdPai:=""
+					dbSelectArea("SD4")
+					If dbSeek(xFilial("SD4")+SC2->C2_NUM+SC2->C2_ITEM+SC2->C2_SEQUEN+SC2->C2_ITEMGRD)
+						dbSelectArea("SC2")
+						dbSetOrder(1)
+						If dbSeek(xFilial("SC2")+SD4->D4_OP)
+							cProdPai:=SC2->C2_PRODUTO
+						EndIf
+						dbSelectArea("TRB")
+						dbGoto(nRecTRB)
+						If !Empty(cProdPai)
+							Replace PRODPAI With cProdPai
+						EndIf
+					EndIf
+					MsUnlock()
+				Endif
+			Endif
+		Next
+		dbSelectArea("TRB")
+		RestArea(_cAreaTRB)
+	Endif
+	dbSelectArea("TRB")
+	dbSetOrder(1)
+	ABKGeraAglut(oTNewProc)
+	If (oTNewProc<>Nil)
+		ABKMake(oTNewProc)
+	Else
+		Processa({|| ABKMake()},cCadastro,OemToAnsi(STR0018),.F.)	//"Aglutinando OPs Selecionadas..."
+	EndIf
+EndIf
+Return Nil
+/*
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³A720GeraAglut ³ Autor ³ Larson Zordan     ³ Data ³ 10/09/01 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Gera NumOPs das OPs Selecionadas                           ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Parametros³oTNewProc = Objeto tNewProcess()                            ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA720                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+Static Function ABKGeraAglut(oTNewProc)
+Local cNovaOpPai := ""
+Local cNovaSeq   := ""
+Local cRefGrd    := ""
+Local lNovoItem  := .F.
+Local nx         := 0
+Local nIG        := 0
+Local lNumOpIni  := .F.
+Local nOrd       := 0
+Local nAglutItem := 1
+Local nAglutIGrd := 1
+Local cAglutSeq  := "001"
+Local cAglutIGrd := StrZero(nAglutIGrd,Len(SC2->C2_ITEMGRD))
+Local lComp      := .F.
+Local cAglutNum  := ""
+Local cQuebrOpc  := ""
+Local cRevisao	 := ""
+Local aOPPAI     := {}
+nx  := Val(Left(GETMV("MV_MASCGRD",.F.),2))
+nIG := Len(TRB->ITEMGRD)
+
+dbSelectArea("TRB")
+dbSetOrder(2)
+dbGoTop()
+
+If (oTNewProc<>Nil)
+	oTNewProc:SetRegua1(TRB->(LastRec()))
+EndIf
+
+While !Eof()
+	If (oTNewProc<>Nil) .And. oTNewProc:lEnd
+		Exit
+	EndIf
+
+	If Empty(TRB->MARK)
+		If (oTNewProc<>Nil)
+			oTNewProc:IncRegua1(STR0026) //"Incrementando Arquivo de Trabalho..."
+		EndIf
+		dbSkip()
+		Loop
+	EndIf
+	cProd1		:= If(REFGRD=="S",Left(TRB->PRODUTO,nx),TRB->PRODUTO)
+	cProd2		:= TRB->PRODUTO
+	cRevisao	:= TRB->REVISAO
+	cQuebrOpc	:= TRB->OPCIONAL
+	cSeqPAI     := TRB->SEQPAI
+	cNumOP		:= Substr(TRB->NUMOP,1,6)
+	cAglutItem  := Substr(TRB->NUMOP,7,2)
+	cAglutSeq   := Substr(TRB->NUMOP,9,3)
+	cAglutIGrd  := Substr(TRB->NUMOP,12,2)
+	If Empty(cSeqPAI)
+		_nPesq := aScan(aOPPAI,{|x| x[1] == cProd2})
+		If _nPesq == 0
+			If Empty(cAglutNum)
+				cAglutNum   := GetNumSc2(.T.)
+			Else
+				cAglutNum   := Soma1(cAglutNum)
+			Endif
+			aadd(aOPPAI,{cProd2,cAglutNum})
+		Else
+			cAglutNum   := aOPPAI[_nPesq,2]
+		Endif 
+		dbSelectArea("TRB")
+		RecLock("TRB",.F.)
+		Replace TRB->AGLUT   With cAglutNum+cAglutItem+cAglutSeq+cAglutIGrd
+		Replace TRB->ITEMGRD With If(Empty(TRB->REFGRD),"",cAglutIGrd)
+		Replace TRB->GRADE   With If(Empty(TRB->ITEMGRD),"","S")
+	Else
+		dbSelectArea("TRB")
+		_aAreaTRB := GetArea()
+		dbSetOrder(1)
+		If dbSeek(cNumOP)
+			cAglutNum := Substr(TRB->AGLUT,1,6) 
+			dbSelectArea("TRB")
+			RestArea(_aAreaTRB)
+			RecLock("TRB",.F.)
+			Replace TRB->AGLUT   With cAglutNum+cAglutItem+cAglutSeq+cAglutIGrd
+			Replace TRB->ITEMGRD With If(Empty(TRB->REFGRD),"",cAglutIGrd)
+			Replace TRB->GRADE   With If(Empty(TRB->ITEMGRD),"","S")
+		Endif
+	Endif
+	MsUnLock()
+	dbSelectArea("TRB")
+	dbSkip()
+End
+dbSetOrder(1)
+Return Nil
+
+//----------------------------------------------------------
+/*Função adiciona OP a array se for válida*/
+//----------------------------------------------------------
+Static Function fOPsAglut(aOPsAglut,cOP)
+	Local nI
+	Local lEncontrou := .F.
+	If !Empty(cOP)
+		//Verifica se a OP já foi adicionada ao array
+		For nI := 1 To Len(aOPsAglut)
+			If cOP == aOPsAglut[nI]
+				lEncontrou := .T.
+			EndIf
+		Next
+		//Se não foi encontrada, adiciona no array
+		If !lEncontrou
+			aAdd(aOPsAglut,cOP)
+		EndIf
+	EndIf
+Return Nil
+
+/*
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³ A720Make  ³ Autor ³ Ary Medeiros          ³ Data ³ 02/06/93 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Grava as OPs aglutinadas, acerta os empenhos e remove as OPs³±±
+±±³          ³ antigas do SC2.                                             ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Parametros³oTNewProc = Objeto tNewProcess()                             ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA720                                                     ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+Static Function ABKMake(oTNewProc)
+Local dDtValid 	:= dDataBase
+Local cOpOrig		:= ""
+Local cProduto	:= ""
+Local cLocal		:= ""
+Local cTRT			:= ""
+Local cLote		:= ""
+Local cLoteCtl	:= ""
+Local cFiltroC6	:= ""
+Local cIndC6		:= ""
+Local cNomArqC6	:= ""
+Local cSeekC6		:= ""
+Local cSeekSD3	:= ""
+Local cSeekDC		:= ""
+Local cRoteiro	:= ""
+Local cFilSD3		:= xFilial('SD3')
+Local lMTA720A	:= ExistBlock("MTA720A")
+Local lTA720OP	:= ExistTemplate("A720OP")
+Local lA720OP		:= ExistBlock("A720OP")
+Local lIntSFC		:= FindFunction('IntegraSFC') .And. IntegraSFC()
+Local aRecnoC6	:= {}
+Local aAreaSC2	:= {}
+Local aArraySDC	:= {}
+Local aOPsAglut	:= {} //OPs que foram geradas por aglutinação
+Local nQuantD4	:= 0
+Local nRecno		:= 0
+Local nIndC6  	:= 0
+Local nX,nI		:= 0
+Local nForSDC		:= 0
+Local nTamOP		:= Len(SC2->C2_NUM)
+Local nTamIt		:= Len(SC2->C2_ITEM)
+Local bWhileDC	:= Nil
+Local lAtuSGJ   	:= SuperGetMV("MV_PVCOMOP",.F.,.F.) .And. FindFunction("ALIASINDIC") .And. AliasIndic("SGJ")
+Local cAliasSGJ  := ""
+Local cSelSGJ    := ""
+
+//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+//³ Funcao utilizada para verificar a ultima versao dos fontes      ³
+//³ SIGACUS.PRW, SIGACUSA.PRX e SIGACUSB.PRX, aplicados no rpo do   |
+//| cliente, assim verificando a necessidade de uma atualizacao     |
+//| nestes fontes. NAO REMOVER !!!							        ³
+//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+IF !(FindFunction("SIGACUS_V") .and. SIGACUS_V() >= 20050512)
+    Final("Atualizar SIGACUS.PRW !!!")
+Endif
+IF !(FindFunction("SIGACUSA_V") .and. SIGACUSA_V() >= 20050512)
+    Final("Atualizar SIGACUSA.PRX !!!")
+Endif
+IF !(FindFunction("SIGACUSB_V") .and. SIGACUSB_V() >= 20050512)
+    Final("Atualizar SIGACUSB.PRX !!!")
+Endif
+
+if MV_PAR08 = 1 .and. lAtuSGJ
+     
+   //SC2->C2_NUM+SC2->C2_ITEM+SC2->C2_SEQUEN+SC2->C2_ITEMGRD
+   nTamOP   := TamSX3("C2_NUM"   )[1]
+   nTamItem := TamSX3("C2_ITEM"  )[1]
+   nTamSeq  := TamSX3("C2_SEQUEN")[1]
+   nTamGrd  := TamSX3("C2_ITEMGRD")[1]    
+              
+   cAliasSGJ := "TabSGJ"    
+     
+endif
+
+
+                         
+//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+//³Checa se o carga maquina nao esta sendo executado³
+//³se nao estiver efetua lock para permitir delecao.³
+//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+If OpenSemSH8() 
+	//-- Indexa SC6 por Filial + NumOP + ItemOP
+	If MV_PAR08 == 1
+		dbSelectArea('SC6')
+		dbSetOrder(1)
+	
+		cFiltroC6 := 'C6_FILIAL=="'+xFilial("SC6")+'".And.'
+		cFiltroC6 += 'C6_NUMOP>="'+Subs(mv_par01,1,nTamOP)+'".And.'
+		cFiltroC6 += 'C6_NUMOP<="'+Subs(mv_par02,1,nTamOP)+'"'
+	
+		cIndC6    := 'C6_FILIAL + C6_NUMOP + C6_ITEMOP + C6_PRODUTO'
+		cNomArqC6 := CriaTrab('',.F.)
+	
+		IndRegua('SC6',cNomArqC6,cIndC6,,cFiltroC6,STR0012)//'Selecionando Registros...'
+		nIndC6 := RetIndex('SC6')
+		#IFNDEF TOP
+			dbSetIndex(cNomArqC6 + OrdBagExt())
+		#ENDIF
+		dbSetOrder(nIndC6 + 1)
+	EndIf
+	
+	dbSelectArea("SC2")
+	dbSetOrder(1)
+	dbSelectArea("TRB")
+
+    If (oTNewProc<>Nil)
+    	oTNewProc:SetRegua2(TRB->(LastRec()))
+    Else
+		ProcRegua(LastRec(),15,6)
+	EndIf
+
+	dbGoTop()
+	While !Eof()
+		If (oTNewProc<>Nil) .And. oTNewProc:lEnd
+    		Exit
+	    EndIf
+
+		cAglut  := AGLUT
+		lGera   := .f.
+		Begin Transaction
+		While !Eof() .And. AGLUT == cAGLUT
+			//------------------------------
+			//Validações antes de aglutinar
+			//------------------------------
+			If (oTNewProc<>Nil) .And. oTNewProc:lEnd
+    			Exit
+		    EndIf
+
+			If (oTNewProc<>Nil)
+				oTNewProc:IncRegua2(STR0027) //"Gravando as Ordens de Produções..."
+			Else
+				IncProc()
+			EndIf
+			
+			If !Empty(GERADO) .Or. Empty(MARK)
+				dbSkip()
+				cAglut  := AGLUT
+				Loop
+			EndIf
+			
+			//Integracao com Chao de Fabrica, só aglutina se conseguir excluir no SFC
+			SC2->(dbSetOrder(1))
+			SC2->(dbSeek(xFilial("SC2")+TRB->NUMOP))
+			If lIntSFC .And. !A650IntSFC(5)
+				dbSkip()
+				Loop
+			EndIf
+			//------------------------------
+			//Fim Validações
+			//------------------------------
+			
+			fOPsAglut(@aOPsAglut,TRB->AGLUT)
+			
+			lGera   := .t.
+			nQuant  := QUANT
+			RecLock("TRB")
+			Replace GERADO with "û"
+			MsUnlock() // Nao precisa ter controle no TTS para arq de trabalho
+			
+			DbSelectArea("SB1")
+			DbSeek(xFilial("SB1")+TRB->PRODUTO)
+			//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+			//³ Esta funcao cria Ordem de Producao ou soma quantidade no SC2 ³
+			//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+			dbSelectArea("SC2")
+			If dbSeek(xFilial("SC2")+cAglut)
+				RecLock("SC2",.F.)
+			Else
+				RecLock("SC2",.T.)
+				Replace;
+				C2_PRODUTO	With TRB->PRODUTO,;
+				C2_FILIAL	With xFilial("SC2"),;
+				C2_NUM		With Substr(cAglut,1,6),;
+				C2_ITEM		With Substr(cAglut,7,2),;
+				C2_EMISSAO	With dDataBase,;
+				C2_LOCAL	With RetFldProd(SB1->B1_COD,"B1_LOCPAD"),;
+				C2_CC		With SB1->B1_CC,;
+				C2_UM		With SB1->B1_UM,;
+				C2_OPC		With TRB->OPCIONAL,;
+				C2_DATPRF	With TRB->ENTREGA,;
+				C2_DESTINA	With "E",;
+				C2_PRIOR	With "500",;
+				C2_SEQUEN	With Substr(cAglut,9,3),;
+				C2_GRADE	With If(!Empty(TRB->ITEMGRD),"S"," "),;
+				C2_DATPRI	With TRB->INICIO,;
+				C2_ITEMGRD	With TRB->ITEMGRD,;
+				C2_AGLUT	With "S",;
+				C2_SEGUM	With SB1->B1_SEGUM,;
+				C2_ROTEIRO	With TRB->ROTEIRO,;
+				C2_TPOP	With TRB->TPOP,; 
+				C2_REVISAO	With TRB->REVISAO
+			EndIf
+			Replace	C2_QUANT	With C2_QUANT+nQuant
+			Replace	C2_QTSEGUM	With C2_QTSEGUM+ConvUm(TRB->PRODUTO,nQuant,0,2)
+			If mv_par14 == 1
+				Replace C2_DATPRF   With If(C2_DATPRF < TRB->ENTREGA, C2_DATPRF, TRB->ENTREGA)
+			Else
+				Replace C2_DATPRF   With If(C2_DATPRF > TRB->ENTREGA, C2_DATPRF, TRB->ENTREGA)
+			EndIf
+			If mv_par07 == 1
+				Replace C2_SEQPAI With TRB->SEQPAI
+			EndIf
+
+			//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+			//³Atualizacao dos campos utilizados pelo processo de geracao ³
+			//³em BATCH.                                                  ³
+			//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+			If FieldPos("C2_BATCH") > 0 .And. FieldPos("C2_BATUSR") > 0 .And. FieldPos("C2_BATROT") > 0
+				Replace C2_BATCH   With "S"
+				Replace C2_BATUSR  With RetCodUsr()
+				Replace C2_BATROT  With FunName()
+			EndIf
+								
+			// Forca gravacao para a integridade
+			SC2->(FKCommit())
+			
+			SC2->(RecNo())
+
+			// Ponto de Entrada
+			If lMTA720A
+				ExecBlock("MTA720A",.f.,.f.)
+			EndIf
+			
+			dbSelectArea("SC1")
+			dbSetOrder(4)
+			dbSeek(xFilial("SC1")+TRB->NUMOP)
+			If Found()
+				While !Eof() .And. xFilial("SC1")+TRB->NUMOP == C1_FILIAL+C1_OP
+					dbSkip()
+					If xFilial("SC1")+TRB->NUMOP == C1_FILIAL+C1_OP
+						nRecno:=Recno()
+						dbSkip(-1)
+						RecLock("SC1",.F.)
+						Replace C1_OP With TRB->AGLUT
+						MsUnlock()
+						dbGoto(nRecno)
+					Else
+						dbSkip(-1)
+						RecLock("SC1",.F.)
+						Replace C1_OP With TRB->AGLUT
+						MsUnlock()
+					EndIf
+				End
+			EndIf
+			dbSetOrder(1)
+			
+			//-- Atualiza o Numero das OP's nos Pedidos de Vendas (SC6)
+			If MV_PAR08 == 1
+			    
+				aRecnoC6 := {}
+				dbSelectArea('SC6')
+				If dbSeek(cSeekC6 := xFilial("SC6") + Left(TRB->NUMOP, Len(SC6->C6_NUMOP + SC6->C6_ITEMOP)) + TRB->PRODUTO, .F.)
+					Do While !Eof() .And. C6_FILIAL + C6_NUMOP + C6_ITEMOP + C6_PRODUTO == cSeekC6
+						If C6_NUMOP+C6_ITEMOP >= Subs(mv_par01,1,nTamOP+nTamIt);
+						.And. C6_NUMOP+C6_ITEMOP <= Subs(mv_par02,1,nTamOP+nTamIt)
+							aAdd(aRecnoC6, Recno())
+							dbSkip()
+						EndIf
+					EndDo
+				EndIf
+				For nX := 1 to Len(aRecnoC6)
+					dbSelectArea('SC6')
+					dbGoto(aRecnoC6[nX])
+					Begin Transaction
+					   RecLock('SC6', .F.)
+					   Replace C6_NUMOP  With Left(TRB->AGLUT, Len(C6_NUMOP))
+					   Replace C6_ITEMOP With SubStr(TRB->AGLUT, Len(C6_NUMOP) + 1, Len(C6_ITEMOP))
+					   MsUnlock()
+					   
+					   if lAtuSGJ	   
+                          cSelSGJ := "SELECT GJ_FILIAL, GJ_NUMPV, GJ_ITEMPV, GJ_ITGRDPV, GJ_PRODUTO, GJ_LOCAL, GJ_NUMOP, GJ_ITEMOP, " + ;
+                                     "       GJ_SEQUEN, GJ_ITGRDOP, GJ_QUANT, GJ_QEMPN, GJ_QEMPN2, SGJ.R_E_C_N_O_ SGJRECNO" + ;
+                                     "FROM "+RetSqlName("SGJ")+" SGJ " + ;               
+                                     "WHERE SGJ.GJ_FILIAL= "+xFilial("SGJ") + ;   											   
+						   		     "      AND    GJ_NUMPV   = " + SC6->C6_NUM + ;
+    							     "      AND GJ_ITEMPV  = " + SC6->C6_ITEM + ;
+   	 							     "      AND GJ_PRODUTO = " + SC6->C6_PRODUTO +;								   
+								     "      AND GJ_NUMOP   = " + SUBSTR( TRB->NUMOP, 1, nTamOP ) + ;
+								     "      AND GJ_ITEMOP  = " + SUBSTR( TRB->NUMOP, nTamOp + 1, nTamItem ) + ;							      								        
+								     "      AND GJ_SEQUEN  = " + SUBSTR( TRB->NUMOP, nTamOP + nTamItem + 1, nTamSeq )
+								      
+  								     if( alltrim( SUBSTR( TRB->NUMOP, nTamOP + nTamItem + nTamSeq + 1, nTamGrd ) ) <> "" )  							         
+								        cSelSGJ := cSelSGJ + " AND GJ_ITGRDOP = " + SUBSTR( TRB->NUMOP, nTamOP + nTamItem + nTamSeq + 1, nTamGrd )
+								     endif   
+								     
+								       		
+				   
+	                        
+	                      cQuery := ChangeQuery(cSelSGJ)	
+	                      dbUseArea(.T.,"TOPCONN",TcGenQry(,,cQuery),cAliasSGJ,.T.,.T.)
+	              
+   	                      while( !eof() )
+	                         dbSelectArea('SGJ')
+	                         RecLock("SGJ",.T.)                 	                    
+                             Replace GJ_FILIAL  WITH (cAliasSGJ)->GJ_FILIAL
+                             Replace GJ_NUMPV   WITH (cAliasSGJ)->GJ_NUMPV   
+                             Replace GJ_ITEMPV  WITH (cAliasSGJ)->GJ_ITEMPV
+                             Replace GJ_ITGRDPV WITH (cAliasSGJ)->GJ_ITGRDPV
+                             Replace GJ_PRODUTO WITH (cAliasSGJ)->GJ_PRODUTO
+                             Replace GJ_LOCAL   WITH (cAliasSGJ)->GJ_LOCAL                       
+                             Replace GJ_NUMOP   WITH SC6->C6_NUMOP                       
+                             Replace GJ_ITEMOP  WITH SC6->C6_ITEMOP
+                             Replace GJ_SEQUEN  WITH (cAliasSGJ)->GJ_SEQUEN
+                             Replace GJ_ITGRDOP WITH (cAliasSGJ)->GJ_ITGRDOP
+                             Replace GJ_QUANT   WITH (cAliasSGJ)->GJ_QUANT
+                             Replace GJ_QEMPN   WITH (cAliasSGJ)->GJ_QEMPN
+                             Replace GJ_QEMPN2  WITH (cAliasSGJ)->GJ_QEMPN2                              	                                           
+                             MsUnlock()	
+                        
+					         dbSelectArea('SGJ')
+					         dbGoto( (cAliasSGJ)->SGJRECNO )
+					         RecLock("SGJ",.F.)
+					         dbDelete( )
+					         MsUnLock()
+					      
+					         dbSelectArea(cAliasSGJ)
+					         dbSkip( )                        
+	                      enddo
+	                 
+	                      dbSelectArea(cAliasSGJ)
+	                      dbCloseArea()
+	                   Endif	              				   
+				   
+					End Transaction
+				Next nX
+			EndIf
+			
+			dbSelectArea('SD3')
+			dbSetOrder(1)
+			If dbSeek(cSeekSD3 := cFilSD3 + TRB->NUMOP)
+				Do While !Eof() .And. cSeekSD3 == D3_FILIAL + D3_OP
+					If Empty(D3_ESTORNO)
+						RecLock('SD3', .F.)
+						Replace D3_OP With TRB->AGLUT
+						MsUnlock()
+					EndIf
+					dbSkip()
+				EndDo
+			EndIf
+			
+			dbSelectArea("SD4")
+			dbSetOrder(4)
+			dbSeek(xFilial("SD4")+TRB->NUMOP)
+			Do While !Eof() .And. xFilial("SD4")+TRB->NUMOP == D4_FILIAL+D4_OPORIG
+				Reclock("SD4",.F.)
+				Replace D4_OPORIG With TRB->AGLUT
+				Replace D4_ORDEM  With StrZero(TRB->ORDEM, Len(D4_ORDEM)) //-- Evita chave duplicada (A Chave Unica no SD4 eh D4_FILIAL+D4_COD+D4_OP+D4_TRT+D4_LOTECTL+D4_NUMLOTE+D4_LOCAL+D4_ORDEM+D4_OPORIG)
+				MsUnlock()
+				dbSkip()
+			EndDo
+			
+			dbSelectArea("SD4")
+			dbSetOrder(2)
+			dbSeek(xFilial("SD4")+TRB->NUMOP)
+			While !Eof() .And. SD4->D4_FILIAL+SD4->D4_OP == xFilial("SD4")+TRB->NUMOP
+				nRecSD4  := RecNo()
+				nQuantD4 := SD4->D4_QUANT
+				cProduto := SD4->D4_COD
+				cLOCAL   := SD4->D4_LOCAL
+				cTRT     := SD4->D4_TRT
+				cLote 	 := SD4->D4_NUMLOTE
+				cLoteCtl := SD4->D4_LOTECTL
+				dDtValid := SD4->D4_DTVALID
+				cOpOrig  :=	SD4->D4_OPORIG
+				dbSetOrder(1)
+				dbSeek(xFilial("SD4")+cProduto+TRB->AGLUT+cTRT+cLoteCtl+cLote)
+				If Found()
+					RecLock("SD4",.F.)
+					Replace D4_QUANT    With D4_QUANT + nQuantD4
+					Replace D4_QTDEORI  With D4_QUANT
+					Replace D4_QTSEGUM  With ConvUm(cProduto,D4_QUANT,0,2)
+				Else
+					RecLock("SD4",.T.)
+					Replace	D4_FILIAL 	With xFilial("SD4")	,D4_DATA    With TRB->ENTREGA,;
+					D4_COD    	With cProduto  	,D4_LOCAL   With cLOCAL,;
+					D4_QUANT  	With nQuantD4  	,D4_QTDEORI With nQuantD4,;
+					D4_OP     	With TRB->AGLUT	,D4_TRT     With cTRT,;
+					D4_NUMLOTE	With cLote		,D4_LOTECTL With cLoteCtl,;
+					D4_DTVALID	With dDtValid  	,D4_QTSEGUM With ConvUm(cProduto,nQuantD4,0,2),;
+					D4_OPORIG	With cOpOrig
+				EndIf
+				MsUnlock() // para nao dar excesso de locks na estacao
+				dbSetOrder(2)
+				dbGoto(nRecSD4)
+	
+				dbSelectArea("SDC")
+				dbSetOrder(2)
+				// Procura por empenho sem lotes
+				If !(Rastro(SD4->D4_COD)) .Or. (Rastro(SD4->D4_COD) .And. Empty(SD4->D4_LOTECTL))
+					cSeekDC  := xFilial("SDC")+SD4->D4_COD+SD4->D4_LOCAL+SD4->D4_OP+SD4->D4_TRT
+					bWhileDC := {|| DC_FILIAL+DC_PRODUTO+DC_LOCAL+DC_OP+DC_TRT}
+				Else
+					If Rastro(SD4->D4_COD,"L")
+						// Procura por empenho com lote
+						cSeekDC   := xFilial("SDC")+SD4->D4_COD+SD4->D4_LOCAL+SD4->D4_OP+SD4->D4_TRT+SD4->D4_LOTECTL
+						bWhileDC  := {|| DC_FILIAL+DC_PRODUTO+DC_LOCAL+DC_OP+DC_TRT+DC_LOTECTL}
+					Else
+						// Procura por empenho com lote+sub-lote
+						cSeekDC  := xFilial("SDC")+SD4->D4_COD+SD4->D4_LOCAL+SD4->D4_OP+SD4->D4_TRT+SD4->D4_LOTECTL+SD4->D4_NUMLOTE
+						bWhileDC := {|| DC_FILIAL+DC_PRODUTO+DC_LOCAL+DC_OP+DC_TRT+DC_LOTECTL+DC_NUMLOTE}
+					EndIf
+				EndIf
+	
+				dbSeek(cSeekDC)
+				aArraySDC := {}
+				Do While ! Eof() .And. cSeekDC == Eval(bWhileDC)
+					Aadd(aArraySDC, SDC->(RecNo()))
+					dbSkip()
+				Enddo
+	
+				For nForSDC := 1 to Len(aArraySDC)
+					dbGoto(aArraySDC[nForSDC])
+					RecLock("SDC", .F.)
+					SDC->DC_OP  := TRB->AGLUT
+					SDC->DC_TRT := cTRT
+					MsUnlock()
+				Next	
+	
+				RecLock("SD4",.f.,.t.)
+				dbDelete()
+				MsUnlock() // para nao dar excesso de locks na estacao
+				dbSkip()
+			End
+			
+			dbSelectArea("SH8")
+			dbSetOrder(1)
+			If dbSeek(xFilial("SH8")+TRB->NUMOP)
+				RecLock("SH8",.F.,.T.)
+				dbDelete()
+				MsUnlock() 
+			EndIf	
+			
+			dbSelectArea("SHD")
+			dbSetOrder(1)
+			If dbSeek(xFilial("SHD")+TRB->NUMOP)
+				RecLock("SHD",.F.,.T.)
+				dbDelete()
+				MsUnlock() 
+			EndIf		
+			
+			dbSelectArea("SC2")
+			aAreaSC2 := SC2->(GetArea())
+			SC2->(dbSetOrder(1))
+			If dbSeek(xFilial("SC2")+TRB->NUMOP)
+			    //ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+				//³ Integração Quality - QIPxPCP                  ³
+				//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+				If IntQIP()
+					QIPAtualiza("SC2",2)
+				Endif
+			
+				//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+				//³ Pontos de Entrada                             ³
+				//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+				If lTA720OP
+					ExecTemplate("A720OP",.F.,.F.)
+				EndIf
+	
+				If lA720OP
+					ExecBlock("A720OP",.F.,.F.)
+				EndIf
+				RecLock("SC2",.F.,.T.)//TODO
+				dbDelete()
+			EndIf
+			RestArea(aAreaSC2)
+			dbSelectArea("TRB")
+			dbSkip()
+		End
+		
+		//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+		//³ Gera integracao com Inspecao de Processos (QIP), caso exista ³
+		//| Obs: funcao OPGeraQIP esta contida no PCPXFUN.				 ³	
+		//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+		If FindFunction("OPGeraQIP")
+			aAreaSC2 := SC2->(GetArea())
+			dbSelectArea("SC2")
+			dbSetOrder(9) //C2_FILIAL+C2_NUM+C2_ITEM+C2_PRODUTO
+	    	If dbSeek(xFilial("SC2")+Substr(cAglut,1,6)+Substr(cAglut,7,2))
+	    		RecLock("SC2",.F.)
+				OPGeraQIP()
+				MsUnLock()
+			Endif
+			RestArea(aAreaSC2)
+		EndIf
+		
+		End Transaction
+		dbSelectArea("TRB")
+	End
+	
+	aAreaSC2 := SC2->(GetArea())
+	SC2->(dbSetOrder(1))
+	For nI := 1 To Len(aOPsAglut)
+		If SC2->(dbSeek(xFilial("SC2")+aOPsAglut[nI]))
+			//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+			//³ Integracoes TOTVS APS e SFC: gera Operacoes X Ordem (SHY)    ³
+			//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ			
+			If Empty(cRoteiro := SC2->C2_ROTEIRO)
+				If Empty(cRoteiro := Posicione("SB1",1,xFilial("SB1")+SC2->C2_PRODUTO,"B1_OPERPAD"))
+					cRoteiro := StrZero(1,TamSX3("G2_CODIGO")[1])
+				EndIf		
+			EndIf
+			SC2->(TAPSOperac(C2_NUM+C2_ITEM+C2_SEQUEN+C2_ITEMGRD,C2_PRODUTO,cRoteiro,C2_QUANT))
+			
+			//-- Integracao com Chao de Fabrica
+			If lIntSFC
+				A650IntSFC(3,4)	//-- Gera OP
+				A650IntSFC(4,2)	//-- Gera operacoes da ordem
+				A650IntSFC(4,3)	//-- Gera empenhos
+			EndIf
+		EndIf
+	Next
+	RestArea(aAreaSC2)
+	
+	//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+	//³ Devolve as ordens originais dos arquivos                     ³
+	//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+	RetIndex('SC6')
+	dbClearFilter()
+	If File(cNomArqC6 += OrdBagExt())
+		fErase(cNomArqC6)
+	EndIf
+
+	//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+	//³Fecha semaforo desbloqueando o SH8 para a filial³
+	//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+	ClosSemSH8()
+EndIf
+Return Nil
+
+/*
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³MTA720EXEC³ Autor ³ Rodrigo de A. Sartorio³ Data ³ 04/01/96 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Executa montagem do arquivo de trabalho e do markbrowse    ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Parametros³oTNewProc = Objeto tNewProcess()                            ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MATA720                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+Static Function MTA720Beck(oTNewProc)//TODO
+Local aStru     := {}
+Local aTam      := {}
+Local cArqTrab1 := cArqTrab2 := ""
+Local nPeriodo  := nUsado
+Local a720CPU	:= {}
+Local nI		:= 0
+Private _aOPAgl   := {}
+
+A710GrvTm(oTNewProc, STR0033) //"Inicio Processamento"
+
+If nPeriodo > 0
+	AADD(aStru,{ "MARK"   		,"C",02		,0})
+	aTam:=TamSX3("D4_OP")
+	AADD(aStru,{ "AGLUT"  		,"C",aTam[1],0})
+	AADD(aStru,{ "NUMOP"  		,"C",aTam[1],0})
+	aTam:=TamSX3("B1_COD")
+	AADD(aStru,{ "PRODUTO"		,"C",aTam[1],0})
+	AADD(aStru,{ "PRODPAI"		,"C",aTam[1],0})
+	aTam:=TamSX3("B1_DESC")
+	AADD(aStru,{ "DESCRICAO"	,"C",aTam[1],0})
+	aTam:=TamSX3("C2_QUANT")
+	AADD(aStru,{ "QUANT"  		,"N",aTam[1],aTam[2]})
+	AADD(aStru,{ "INIOP" 		,"D",08		,0})
+	AADD(aStru,{ "ENTOP"		,"D",08		,0})
+	AADD(aStru,{ "INICIO" 		,"D",08		,0})
+	AADD(aStru,{ "ENTREGA"		,"D",08		,0})
+	AADD(aStru,{ "ORDEM"  		,"N",04		,0})
+	AADD(aStru,{ "GERADO" 		,"C",01		,0})
+	AADD(aStru,{ "ROTEIRO" 		,"C",02		,0})
+	AADD(aStru,{ "GRADE"   		,"C",01		,0})
+	aTam:=TamSX3("C2_ITEMGRD")
+	AADD(aStru,{ "ITEMGRD" 		,"C",aTam[1],0})
+	aTam:=TamSX3("C2_OPC")
+	AADD(aStru,{ "OPCIONAL"		,"C",aTam[1],0})
+	aTam:=TamSX3("C2_TPOP")
+	AADD(aStru,{ "TPOP"			,"C",aTam[1],0})
+	aTam:=TamSX3("C2_SEQPAI")
+	AADD(aStru,{ "SEQPAI"		,"C",aTam[1],0})
+	AADD(aStru,{ "REFGRD"		,"C",01,0})
+	aTam:=TamSX3("C2_REVISAO")
+	AADD(aStru,{ "REVISAO"		,"C",aTam[1],0})
+	If ExistBlock("MA720CPU")
+		a720CPU := ExecBlock("MA720CPU",.F.,.F.,{1})
+		If ValType(a720CPU) == "A"
+			For nI := 1 to Len(a720CPU)
+				aAdd(aStru,a720CPU[nI])
+			Next nI
+		EndIf
+	EndIf
+	cSavAlias := Alias()
+	cArqTrab1 := CriaTrab(aStru)
+	cArqTrab2 := CriaTrab(Nil,.F.)
+	cArqTrab3 := CriaTrab(Nil,.F.)
+	If Select("TRB") > 0
+		dbSelectArea("TRB")
+		dbCloseArea()
+	EndIf
+    cKey1 := "NUMOP"
+    cKey2 := "SEQPAI+PRODUTO+ROTEIRO+OPCIONAL+DTOS(ENTREGA)"
+
+	USE &cArqTrab1 ALIAS TRB NEW
+	IndRegua("TRB",Left(cArqTrab1,7)+"I",cKey1,,,STR0012)	//"Selecionando Registros..."
+	IndRegua("TRB",cArqTrab2,cKey2,,,STR0012)				//"Selecionando Registros..."
+	dbClearIndex()     
+	dbSetIndex(Left(cArqTrab1,7)+"I"+OrdBagExt())
+	dbSetIndex(cArqTrab2+OrdBagExt())
+	A720AglBk(nPeriodo)
+	A720BrwBK(oTNewProc)
+	dbSelectArea('TRB')
+	dbCloseArea()
+    Ferase(cArqTrab1+GetDBExtension())
+    Ferase(Left(cArqTrab1,7)+"I"+OrdBagExt())
+    Ferase(cArqTrab2+OrdBagExt())
+	dbSelectArea(cSavAlias)
+EndIf
+A710GrvTm(oTNewProc, STR0034) //"Fim Processamento"
+Return Nil
+
+/*
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³ Fun‡…o   ³MTA720OK  ³ Autor ³Rodrigo de A. Sartorio ³ Data ³ 04/01/96 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Descri‡…o³ Confirmacao antes de executar a Aglutinacao.               ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³ Uso      ³ MTA720OK                                                   ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+Static Function MTA720OK()
+Local cText := OemToAnsi(STR0019)+CHR(13)	//"Esta rotina ir  aglutinar as Ordens de Produ‡„o"
+cText += OemToAnsi(STR0020)+CHR(13)     	//"conforme os parƒmetros selecionados."
+cText += OemToAnsi(STR0021)	                //"Confirma a aglutina‡„o das OPs ?"
+Return (MsgYesNo(cText,OemToAnsi(STR0022)))	//"Aten‡„o"
+
+/*
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³ A720Escol  ³ Autor ³Rodrigo de A.Sartorio³ Data ³ 04/01/96 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Escolhe as Ops para Aglutinar                              ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Uso       ³ MATA720                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+Static Function A720EsBK(cMarca,lInverte,oDlg)
+If IsMark("MARK",cMarca,lInverte)
+	RecLock("TRB",.F.)
+	If !lInverte
+		Replace TRB->MARK With cMarca
+	Else
+		Replace TRB->MARK With "  "
+	Endif
+	MsUnlock()
+Else
+	RecLock("TRB",.F.)
+	If !lInverte
+		Replace TRB->MARK With "  "
+	Else
+		Replace TRB->MARK With cMarca
+	Endif
+	MsUnlock()
+Endif
+oDlg:Refresh()
+Return .T.
+
+/*
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
+±±³Fun‡…o    ³ A720MarkAll³ Autor ³Rodrigo de A.Sartorio³ Data ³ 04/01/96 ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Descri‡…o ³ Inverte as OPs Marcadas/Desmarcadas                        ³±±
+±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+±±³Uso       ³ MATA720                                                    ³±±
+±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+Static Function A720MarkABK(cMarca,oDlg)
+Local nRecno := Recno()
+dbGotop()
+Do While !Eof()
+	RecLock("TRB",.F.)
+	If Empty(TRB->MARK)
+		Replace TRB->MARK With cMarca
+	Else
+		Replace TRB->MARK With "  "
+	Endif
+	MsUnlock()
+	dbSkip()
+EndDo
+dbGoto(nRecno)
+oDlg:Refresh()
+Return .T.
+/*
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+±±ÉÍÍÍÍÍÍÍÍÍÍÑÍÍÍÍÍÍÍÍÍÍËÍÍÍÍÍÑÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍËÍÍÍÍÍÍÑÍÍÍÍÍÍÍÍÍÍÍÍÍ»±±
+±±ºFuncao    ³AjustaSX1 ºAutor³Felipe Nunes Toledo   º Data ³ 15/06/2007  º±±
+±±ÌÍÍÍÍÍÍÍÍÍÍØÍÍÍÍÍÍÍÍÍÍÊÍÍÍÍÍÏÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÊÍÍÍÍÍÍÏÍÍÍÍÍÍÍÍÍÍÍÍÍ¹±±
+±±ºUso       ³ MATA720                                                    º±±
+±±ÈÍÍÍÍÍÍÍÍÍÍÏÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼±±
+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+*/
+Static Function AjustaSX1()
+Local aHelpPor :={} 
+Local aHelpEng :={} 
+Local aHelpSpa :={} 
+      
+/*-----------------------MV_PAR14--------------------------*/
+Aadd( aHelpPor, "Define qual a data prevista de termino  ")
+Aadd( aHelpPor, "entre as Ordens de Produções, que será  ")
+Aadd( aHelpPor, "considerada para compor a data prevista ")
+Aadd( aHelpPor, "de termino(C2_DATRF), da OP aglutinada. ")
+Aadd( aHelpPor, "(Considera a Menor ou Maior data prev.?)")
+
+Aadd( aHelpEng, "Its defines which delivery estimated    ")
+Aadd( aHelpEng, "date into the Productions Orders, that  ")
+Aadd( aHelpEng, "will be considered to compose the       ")
+Aadd( aHelpEng, "agglutinated PO.                        ")
+Aadd( aHelpEng, "(It considers the lower or higher       ")
+Aadd( aHelpEng, "estimated date ?)                       ")
+
+Aadd( aHelpSpa, "Define cual es la fecha prevista de     ")
+Aadd( aHelpSpa, "término entre las órdenes de produciones")
+Aadd( aHelpSpa, "será considerada para componer la fecha ")
+Aadd( aHelpSpa, "prevista de término (C2_DATRF), de la OP")
+Aadd( aHelpSpa, " aglutinada.                            ")
+Aadd( aHelpSpa, "(¿Considere la menor o la mayor fecha   ")
+Aadd( aHelpSpa, "prevista ?)                             ")
+
+PutSx1( "MTA720","14","Dt. Prev. Fim a Considerar?","¿Fecha Entr. a Consider. ?","Deliv. dt. to be consider.?","mv_che",;
+"N",1,0,2,"C","","","","S","mv_par14","Menor Dt. Fim","Menor fecha Fim","Lower end date?","",;
+"Maior Dt. Fim","Mayor fecha Fim","Higher end date?","","","","","","","","","",;
+aHelpPor,aHelpEng,aHelpSpa)
+
+Return Nil 

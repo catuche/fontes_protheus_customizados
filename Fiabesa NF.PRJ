@@ -1,0 +1,38 @@
+Group Fiabesa - NF
+   Version=7.0
+   VSSDB=
+   HasProperties=1
+   Properties
+      BeforeApply=
+      AfterApply=
+      Icon=
+      ID=
+      Version=
+      PalmName=
+      OutPut=
+   End
+   ProjectsCount=1
+   Project Novo Projeto
+      FoldersCount=2
+      Folder Fontes
+         VSSPath=Fontes
+         FilesCount=2
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\Raphael\XCARGAR02.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\Raphael\XCARGAR01.prw
+             Type=T
+         End
+      End
+      Folder Definições
+         VSSPath=Definições
+         FilesCount=2
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\NF\PE01NFESEFAZ.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\NF\nfesefaz.prw
+             Type=T
+         End
+      End
+   End
+End

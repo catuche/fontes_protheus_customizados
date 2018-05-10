@@ -1,0 +1,311 @@
+#INCLUDE "PROTHEUS.CH"
+
+/*
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+ฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑ
+ฑฑษออออออออออัออออออออออหอออออออัออออออออออออออออออออหออออออัอออออออออออออปฑฑ
+ฑฑบPrograma  ณEXMATR280 บAutor  ณRicardo Rotta       บ Data ณ  01/24/18   บฑฑ
+ฑฑฬออออออออออุออออออออออสอออออออฯออออออออออออออออออออสออออออฯอออออออออออออนฑฑ
+ฑฑบDesc.     ณ Gera planilha para digita็ใo do inventario                 บฑฑ
+ฑฑบ          ณ                                                            บฑฑ
+ฑฑฬออออออออออุออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออนฑฑ
+ฑฑบUso       ณ AP                                                        บฑฑ
+ฑฑศออออออออออฯออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผฑฑ
+ฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑ
+฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿
+*/
+
+
+User Function EXMATR280()
+
+Local aSay    := {}
+Local aButton := {}
+Local nOpc    := 0
+Local cTitulo := "Planilha Inventแrio"
+Local cDesc1  := "Este programa tem como objetivo gerar planilha Excel"
+Local cDesc2  := "com os itens para Inventแrio"
+Local cDesc3  := "Especifico - Fiabesa"
+Local _cPerg  := "EXMATR281"
+
+AjustaSX1(_cPerg)
+
+Pergunte(_cPerg,.F.)
+
+
+//ฺฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฟ
+
+//ฺฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฟ
+//ณ Variaveis utilizadas para parametros                         ณ
+//ณ mv_par01     // Data Inventario                              ณ
+//ณ mv_par02     // Documento                                    ณ
+//ณ mv_par03     // Contagens                                    ณ
+//ณ mv_par04     // Almox. de                                    ณ
+//ณ mv_par05     // Almox. ate                                   ณ
+//ณ mv_par06     // Produto de                                   ณ
+//ณ mv_par07     // Produto ate                                  ณ
+//ณ mv_par08     // tipo de                                      ณ
+//ณ mv_par09     // tipo ate                                     ณ
+//ณ mv_par10     // grupo de                                     ณ
+//ณ mv_par11     // grupo ate                                    ณ
+//ณ mv_par12     // Imprime Saldo ? (Sim/Nao)        ณ
+//ภฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤู
+
+aAdd( aSay, cDesc1 )
+aAdd( aSay, cDesc2 )
+aAdd( aSay, cDesc3 )
+
+aAdd( aButton, { 5, .T., {|| Pergunte(_cPerg,.T. )    }} )
+aAdd( aButton, { 1, .T., {|| nOpc := 1, FechaBatch() }} )
+aAdd( aButton, { 2, .T., {|| FechaBatch()            }} )
+
+FormBatch( cTitulo, aSay, aButton )
+
+If nOpc <> 1
+	Return Nil
+Endif
+
+Processa( {|lEnd| RunProc(@lEnd)}, "Aguarde...","Gerando Planilha para Inventแrio", .T. )
+
+Return
+
+/*
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+ฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑ
+ฑฑษออออออออออัออออออออออหอออออออัออออออออออออออออออออหออออออัอออออออออออออปฑฑ
+ฑฑบPrograma  ณRELFATM   บAutor  ณMicrosiga           บ Data ณ  04/17/15   บฑฑ
+ฑฑฬออออออออออุออออออออออสอออออออฯออออออออออออออออออออสออออออฯอออออออออออออนฑฑ
+ฑฑบDesc.     ณ                                                            บฑฑ
+ฑฑบ          ณ                                                            บฑฑ
+ฑฑฬออออออออออุออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออนฑฑ
+ฑฑบUso       ณ AP                                                        บฑฑ
+ฑฑศออออออออออฯออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผฑฑ
+ฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑ
+฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿
+*/
+Static Function RunProc()
+
+Local _aArea := GetArea()
+Local _nX := 1
+LOCAL cDirDocs   := MsDocPath()
+Local cArquivo := CriaTrab(,.F.)
+Local cPath		:= AllTrim(GetTempPath())
+Local oExcelApp
+Local oExcel
+Local _aLista := {}
+Local _aIncos := {}
+Local _cFilial := cFilAnt
+Local _dDtInv  := mv_par01
+Local _lImpSaldo := mv_par14 == 2
+oExcel := FWMSEXCEL():New()
+If !ApOleClient('MsExcel')
+	MsgAlert('MsExcel nao instalado') //
+	Return
+EndIf
+
+_cArqTMP := CriaTrab(nil,.f.)
+
+_cQuery := "SELECT B1_FILIAL,B1_COD,B1_TIPO,B1_GRUPO,B1_DESC,B1_UM,B1_PERINV "
+_cQuery += "FROM " + RetSqlName("SB1") + " SB1 "
+_cQuery += "WHERE B1_FILIAL  = '" + xFilial("SB1") + "' AND "
+_cQuery += "B1_COD    >= '" + mv_par06 + "' AND "
+_cQuery += "B1_COD    <= '" + mv_par07 + "' AND "
+_cQuery += "B1_TIPO   >= '" + mv_par08 + "' AND "
+_cQuery += "B1_TIPO   <= '" + mv_par09 + "' AND "
+_cQuery += "B1_GRUPO  >= '" + mv_par10 + "' AND "
+_cQuery += "B1_GRUPO  <= '" + mv_par11 + "' AND "
+_cQuery += "SB1.D_E_L_E_T_ = ' ' "
+_cQuery += "ORDER BY B1_COD"
+dbUseArea(.T.,"TOPCONN",TCGenQry(,,_cQuery),_cArqTMP,.t.,.t.) // Query para pegar os itens a serem processados que tiveram movimentos nesse periodo
+dbSelectArea(_cArqTMP)
+While !Eof()
+	_cProd   := (_cArqTMP)->B1_COD
+	If IsProdMod(_cProd)
+		dbSkip()
+		Loop
+	Endif
+	_cDesc	:= (_cArqTMP)->B1_DESC
+	_cUM	:= (_cArqTMP)->B1_UM
+	dbSelectArea("SB2")
+	dbSetOrder(1)
+	dbSeek(xFilial()+_cProd)
+	While !Eof() .and. xFilial("SB2")+_cProd == SB2->(B2_FILIAL+B2_COD)
+		_cLocal := SB2->B2_LOCAL
+		If _cLocal < mv_par04 .or. _cLocal > mv_par05
+			dbSkip()
+			Loop
+		Endif
+		aSaldo  := CalcEst(_cProd,_cLocal,_dDtInv+1)
+		_nSldB2 := aSaldo[1]
+		If _nSldB2 > 0
+			If Rastro(_cProd) .or. Localiza(_cProd)
+				If Localiza(_cProd)
+					_nQtdLoc := 0
+					dbSelectArea("SBF")
+					dbSetOrder(2)
+					dbSeek(xFilial()+_cProd+_cLocal)
+					While !Eof() .and. xFilial("SBF")+_cProd+_cLocal == SBF->(BF_FILIAL+BF_PRODUTO+BF_LOCAL)
+						If SBF->BF_LOCALIZ >= mv_par12 .and. SBF->BF_LOCALIZ <= mv_par13
+							aSaldo:=CalcEstL(_cProd,_cLocal,_dDtInv+1,SBF->BF_LOTECTL,SBF->BF_NUMLOTE,SBF->BF_LOCALIZ,SBF->BF_NUMSERI)
+							If aSaldo[1] > 0
+								_nQtdLoc += aSaldo[1]
+								aadd(_aLista,{_cFilial, _cProd, _cDesc, _cUM, _cLocal, SBF->BF_LOTECTL, SBF->BF_NUMLOTE, SBF->BF_LOCALIZ,SBF->BF_NUMSERI, IIF(_lImpSaldo,aSaldo[1],0)})
+							Endif
+						Endif
+						dbSelectArea("SBF")
+						dbSkip()
+					End
+					If QtdComp(_nSldB2) <> QtdComp(_nQtdLoc)
+						_nDif := _nSldB2 - _nQtdLoc
+						aadd(_aIncos, {_cFilial, _cProd, _cDesc, _cUM, _cLocal, _nSldB2, _nQtdLoc, _nDif, "Sem Endereco"})
+					Endif
+				Else
+					_nQtdLoc := 0
+					dbSelectArea("SB8")
+					dbSetOrder(1)
+					dbSeek(xFilial()+_cProd+_cLocal)
+					While !Eof() .and. xFilial("SB8")+_cProd+_cLocal == SB8->(B8_FILIAL+B8_PRODUTO+B8_LOCAL)
+						aSaldo:=CalcEstL(_cProd,_cLocal,_dDtInv+1,SB8->B8_LOTECTL,SB8->B8_NUMLOTE)
+						If aSaldo[1] > 0
+							_nQtdLoc += aSaldo[1]
+							aadd(_aLista,{_cFilial, _cProd, _cDesc, _cUM, _cLocal, SB8->B8_LOTECTL, SB8->B8_NUMLOTE, " "," ", IIF(_lImpSaldo,aSaldo[1],0)})
+						Endif
+						dbSelectArea("SB8")
+						dbSkip()
+					End
+					If QtdComp(_nSldB2) <> QtdComp(_nQtdLoc)
+						_nDif := _nSldB2 - _nQtdLoc
+						aadd(_aIncos, {_cFilial, _cProd, _cDesc, _cUM, _cLocal, _nSldB2, _nQtdLoc, _nDif, "Diferen็a de Lote"})
+					Endif
+				Endif
+			Else
+				aadd(_aLista,{_cFilial, _cProd, _cDesc, _cUM, _cLocal, " ", " ", " "," ", IIF(_lImpSaldo,aSaldo[1],0)})
+			Endif
+		Endif
+		dbSelectArea("SB2")
+		dbSkip()
+	End
+	dbSelectArea(_cArqTMP)
+	dbSkip()
+End
+If !Empty(_aLista) .or. !Empty(_aIncos)
+
+	If !Empty(_aLista)
+		For _nY:=1 to mv_par03
+			_cWorkSheet := "Contag" + Alltrim(Str(_nY))
+			oExcel:AddworkSheet(_cWorkSheet)
+			oExcel:AddTable(_cWorkSheet,"Inventario")
+							//cWorkSheet        	,cTable		,cColumm	,nAlign	,nFormat	,lTotal					
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Filial"		,1		,1			,.F.	)
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Documento"	,1		,1			,.F.	)
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Dt Inventario",1		,4			,.F.	)
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Codigo"		,1		,1			,.F.	)	// 2
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Descri็ใo"	,1		,1			,.F.	)	// 3
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"UM"			,1		,1			,.F.	)	// 4
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Local"		,1		,1			,.F.	)	// 5
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Lote"			,1		,1			,.F.	)	// 6
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"SubLote"		,1		,1			,.F.	)	// 7
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Endere็o"		,1		,1			,.F.	)	// 8
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Numero Serie"	,1		,1			,.F.	)	// 9
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Contagem" 	,1		,1			,.F.	)	// 10
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Inventariado"	,3		,2			,.F.	)	// 11
+			If _lImpSaldo
+				oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Em Estoque"	,3		,2			,.F.	)	// 12
+			Endif
+			For _nX:=1 to Len(_aLista)
+	//aadd(_aLista,{_cFilial, _cProd, _cDesc, _cUM, _cLocal, SBF->BF_LOTECTL, SBF->BF_NUMLOTE, SBF->BF_LOCALIZ,SBF->BF_NUMSERI, aSaldo[1]})
+				If _lImpSaldo
+					oExcel:AddRow(_cWorkSheet,"Inventario",{_aLista[_nX,1], mv_par02, mv_par01, _aLista[_nX,2],_aLista[_nX,3],_aLista[_nX,4],_aLista[_nX,5],_aLista[_nX,6],_aLista[_nX,7],_aLista[_nX,8],_aLista[_nX,9], StrZero(_nY,3), 0, _aLista[_nX,10] })
+				Else
+					oExcel:AddRow(_cWorkSheet,"Inventario",{_aLista[_nX,1], mv_par02, mv_par01, _aLista[_nX,2],_aLista[_nX,3],_aLista[_nX,4],_aLista[_nX,5],_aLista[_nX,6],_aLista[_nX,7],_aLista[_nX,8],_aLista[_nX,9], StrZero(_nY,3), 0 })
+				Endif
+			Next
+		Next
+	Endif
+	If !Empty(_aIncos)
+		If Len(_aIncos)
+			_cWorkSheet := "DIVERGENCIA"
+			oExcel:AddworkSheet(_cWorkSheet)
+			oExcel:AddTable(_cWorkSheet,"Inventario")
+							//cWorkSheet        	,cTable		,cColumm	,nAlign	,nFormat	,lTotal					
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Filial"		,1		,1			,.F.	)
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Codigo"		,1		,1			,.F.	)	// 2
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Descri็ใo"	,1		,1			,.F.	)	// 3
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"UM"			,1		,1			,.F.	)	// 4
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Local"		,1		,1			,.F.	)	// 5
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Kardex"		,3		,2			,.F.	)	// 11
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Lote/Endere็o",3		,2			,.F.	)	// 11
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Diferen็a Kardex"	,3		,2			,.F.	)	// 11
+			oExcel:AddColumn(_cWorkSheet		,"Inventario"	,"Observacao"	,1		,1			,.F.	)	// 7
+			For _nX:=1 to Len(_aIncos)
+				oExcel:AddRow(_cWorkSheet,"Inventario",{_aIncos[_nX,1], _aIncos[_nX,2],_aIncos[_nX,3],_aIncos[_nX,4],_aIncos[_nX,5],_aIncos[_nX,6],_aIncos[_nX,7],_aIncos[_nX,8],_aIncos[_nX,9] })
+			Next
+		Endif
+	Endif
+Endif
+If !Empty(oExcel:aWorkSheet)
+	oExcel:Activate()
+	oExcel:GetXMLFile(cDirDocs+"\"+cArquivo)
+	CpyS2T(cDirDocs+"\"+cArquivo,cPath)
+	oExcelApp := MsExcel():New()
+	oExcelApp:WorkBooks:Open(cPath+cArquivo) // Abre uma planilha
+	oExcelApp:SetVisible(.T.)
+	oExcelApp:Destroy()
+Else
+	MsgAlert("Nใo hแ valores para exporta็ใo.")
+EndIf
+dbSelectArea(_cArqTMP)
+dbCloseArea()
+RestArea(_aArea)
+Return
+
+/*
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+ฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑ
+ฑฑษออออออออออัออออออออออหอออออออัออออออออออออออออออออหออออออัอออออออออออออปฑฑ
+ฑฑบPrograma  ณAjustaSx1 บAutor  ณMicrosiga           บ Data ณ  01/19/11   บฑฑ
+ฑฑฬออออออออออุออออออออออสอออออออฯออออออออออออออออออออสออออออฯอออออออออออออนฑฑ
+ฑฑบDesc.     ณ                                                            บฑฑ
+ฑฑบ          ณ                                                            บฑฑ
+ฑฑฬออออออออออุออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออนฑฑ
+ฑฑบUso       ณ AP                                                        บฑฑ
+ฑฑศออออออออออฯออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผฑฑ
+ฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑ
+฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿
+*/
+Static Function AjustaSx1(cPerg)
+
+Local _aArea := GetArea()
+Local aRegs := {}
+Local i,j
+
+dbSelectArea("SX1")
+dbSetOrder(1)
+cPerg := PADR(cPerg,10)
+
+Aadd(aRegs,{cPerg,"01","Data Inventario ?","Data Inventario      ?","Data Inventario     ?","mv_ch1","D",8,0,0,"G","","mv_par01","","","","","","","","","","","","","","","","","","","","","","","","",""," ","",""})
+Aadd(aRegs,{cPerg,"02","Documento       ?","Documento            ?","Documento           ?","mv_ch2","C",TAMSX3("B7_DOC")[1],0,0,"G","","mv_par02","","","","","","","","","","","","","","","","","","","","","","","","",""," ","",""})
+Aadd(aRegs,{cPerg,"03","Contagens      ?","Do Armazem           ?","Do Armazem          ?","mv_ch3","N",2,0,0,"G","","mv_par03","","","","","","","","","","","","","","","","","","","","","","","","","SB1"," ","",""})
+Aadd(aRegs,{cPerg,"04","Do Armazem      ?","Do Armazem           ?","Do Armazem          ?","mv_ch4","C",TAMSX3("B1_LOCPAD")[1],0,0,"G","","mv_par04","","","","","","","","","","","","","","","","","","","","","","","","","NNR"," ","",""})
+Aadd(aRegs,{cPerg,"05","Ate Armazem     ?","Ate Armazem          ?","Ate Armazem         ?","mv_ch5","C",TAMSX3("B1_LOCPAD")[1],0,0,"G","","mv_par05","","","","","","","","","","","","","","","","","","","","","","","","","NNR"," ","",""})
+Aadd(aRegs,{cPerg,"06","Do Produto      ?","Do Armazem           ?","Do Armazem          ?","mv_ch6","C",TAMSX3("B1_COD")[1],0,0,"G","","mv_par06","","","","","","","","","","","","","","","","","","","","","","","","","SB1"," ","",""})
+Aadd(aRegs,{cPerg,"07","Ate Produto     ?","Ate Armazem          ?","Ate Armazem         ?","mv_ch7","C",TAMSX3("B1_COD")[1],0,0,"G","","mv_par07","","","","","","","","","","","","","","","","","","","","","","","","","SB1"," ","",""})
+Aadd(aRegs,{cPerg,"08","Do Tipo         ?","Do Armazem           ?","Do Armazem          ?","mv_ch8","C",TAMSX3("B1_TIPO")[1],0,0,"G","","mv_par08","","","","","","","","","","","","","","","","","","","","","","","","","02"," ","",""})
+Aadd(aRegs,{cPerg,"09","Ate Tipo        ?","Ate Armazem          ?","Ate Armazem         ?","mv_ch9","C",TAMSX3("B1_TIPO")[1],0,0,"G","","mv_par09","","","","","","","","","","","","","","","","","","","","","","","","","02"," ","",""})
+Aadd(aRegs,{cPerg,"10","Do Grupo        ?","Do Armazem           ?","Do Armazem          ?","mv_cha","C",TAMSX3("B1_GRUPO")[1],0,0,"G","","mv_par10","","","","","","","","","","","","","","","","","","","","","","","","","SMB"," ","",""})
+Aadd(aRegs,{cPerg,"11","Ate Grupo       ?","Ate Armazem          ?","Ate Armazem         ?","mv_chb","C",TAMSX3("B1_GRUPO")[1],0,0,"G","","mv_par11","","","","","","","","","","","","","","","","","","","","","","","","","SBM"," ","",""})
+Aadd(aRegs,{cPerg,"12","Do Endereco     ?","Do Armazem           ?","Do Armazem          ?","mv_chc","C",TAMSX3("BE_LOCALIZ")[1],0,0,"G","","mv_par12","","","","","","","","","","","","","","","","","","","","","","","","","SBE"," ","",""})
+Aadd(aRegs,{cPerg,"13","Ate Endereco    ?","Ate Armazem          ?","Ate Armazem         ?","mv_chd","C",TAMSX3("BE_LOCALIZ")[1],0,0,"G","","mv_par13","","","","","","","","","","","","","","","","","","","","","","","","","SBE"," ","",""})
+AADD(aRegs,{cPerg,"14","Imprime Saldo   ?","",""                                           ,"mv_che","N",01,0,0,"C","","mv_par14","Nao","Nao","Nao","","","Sim","Sim","Sim","","","","","","","","","","","","","",""})
+For i:=1 to Len(aRegs)
+	If !dbSeek(cPerg+aRegs[i,2])
+		RecLock("SX1",.T.)
+		For j:=1 to FCount()
+			If j <= Len(aRegs[i])
+				FieldPut(j,aRegs[i,j])
+			Endif
+		Next
+		MsUnlock()
+	Endif
+Next      
+RestArea(_aArea)
+Return

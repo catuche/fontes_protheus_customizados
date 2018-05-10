@@ -1,0 +1,307 @@
+Group Fiabesa
+   Version=7.0
+   VSSDB=
+   HasProperties=1
+   Properties
+      BeforeApply=
+      AfterApply=
+      Icon=
+      ID=
+      Version=
+      PalmName=
+      OutPut=
+   End
+   ProjectsCount=1
+   Project Novo Projeto
+      FoldersCount=7
+      Folder Relatorio
+         VSSPath=Fontes
+         FilesCount=8
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\F_WMSR325.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\FB_IRP.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\FB_Etiq.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\RRATINV.prx
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\F_matr820.prx
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\RAVFORN.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\RELPROD.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\EBr450v2.prw
+             Type=T
+         End
+      End
+      Folder Materiais
+         VSSPath=Definições
+         FilesCount=16
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\RESTA01.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\RESTA02v2.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\RESTA02.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\RATINV.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\CADRATINV.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\CADSZ1.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\FB_ENCOP.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\A410QTD3.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\FB_mata681.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\FB_APONTRF.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\EXmatr280.prx
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\FB_PRODPA.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\RTRANSFLC.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\FB680Alt.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\FBMATA261.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\F_mata720.prx
+             Type=T
+         End
+      End
+      Folder Ponto de entrada
+         VSSPath=Nova Pasta3
+         FilesCount=43
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\MT100LOK.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\SF1140I.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\MT103INC.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\MTA140MNU.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\MT100AGR.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\A140ALT.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\SD1140E.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\EMP650.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\SF1100I.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\MT680VAL.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\SD3240I.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\MA261D3.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\MTA120G2.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\MT105GRV.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\MT105QRY.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\M185FILB.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\MT140LOK.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\MA650TOK.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\MTA650OK.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\MT110LOK.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\MT103IPC.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\SD3250I.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\SD3250R.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\M410LIOK.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\CONVUM.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\A650OPI.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\MTA650I.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\MTA720A.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\A680PERG.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\MTA681MNU.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\MA260D3F.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\MTA260MNU.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\MTGRVLOT.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\FB680Alt.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\MA261CPO.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\XPROXLOT.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\M261BCHOI.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\MTA261MNU.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\MA261TRD3.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\A010TOK.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\MA261LIN.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\MTA245MNU.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\MT260TOK.prw
+             Type=T
+         End
+      End
+      Folder Rotinas
+         VSSPath=Nova Pasta4
+         FilesCount=7
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\ForCliSEQ.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\Seq_OPer.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\CADSZ0.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\CADSZ2.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\CADSZ4.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\CADPC2.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\jobm330.prw
+             Type=T
+         End
+      End
+      Folder Util
+         VSSPath=Nova Pasta5
+         FilesCount=9
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\GESTPV.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\ETIQCRY.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\Rcomw02.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\IMPORTACAOTXT.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\MANC7RES.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\SESTA001.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\CCPUPDATE.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\teste\AT_DTTURNO.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\b2b8bf_v2.PRW
+             Type=T
+         End
+      End
+      Folder Finaceiro
+         VSSPath=Nova Pasta6
+         FilesCount=1
+         File \Microsiga\CLIENTES\Fiabesa\Rdmake\FB_FINC021.PRW
+             Type=T
+         End
+      End
+      Folder Custo Medio
+         VSSPath=Nova Pasta7
+         FilesCount=3
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\MA330P3.PRW
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\MA330TRB.prw
+             Type=T
+         End
+         File \Microsiga\CLIENTES\Fiabesa\rdmake\MA330CP.prw
+             Type=T
+         End
+      End
+   End
+End
